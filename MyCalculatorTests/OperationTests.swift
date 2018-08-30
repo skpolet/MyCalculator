@@ -48,7 +48,7 @@ class Operation: XCTest {
         print(calculating(data: data))
         
     }
-    func calculating(data: Data) -> (result:Int,error: Bool) {
+    func calculating(data: Data) -> (result:Int,error: Bool,history:String) {
         //let data = Data()
         var result :Int
 
@@ -56,22 +56,22 @@ class Operation: XCTest {
         case "+":
             result = data.operand1! + data.operand2!
             data.history = "\(data.operand1,data.operation,data.operand1,"=",result)"
-            return (result, false)
+            return (result, false, data.history!)
         case "-":
             result = data.operand1! - data.operand2!
             data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false)
+            return (result, false, data.history!)
         case "/":
             result = data.operand1! / data.operand2!
             data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false)
+            return (result, false, data.history!)
         case "*":
             result = data.operand1! * data.operand2!
             data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false)
+            return (result, false, data.history!)
         default:
             print("Operation not avalibale!")
-            return (0 , true)
+            return (0 , true,data.history!)
         }
        // var myString = String(x)
 
