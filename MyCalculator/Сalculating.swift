@@ -21,22 +21,31 @@ enum Сalculating {
         switch self {
         case .addition(let operand1, let operand2):
             let historyStr = String(format: "%.2f + %.2f = %.2f", operand1, operand2, operand1 + operand2)
-            _ = Data.init(operand1: operand1, operand2: operand2, operation: "+",history:historyStr)
+            let historyBox = Data.init(operand1: operand1, operand2: operand2, operation: "+",history:historyStr)
+            AppendHistoryBox(data: historyBox)
             return (operand1 + operand2,false,historyStr)
         case .substraction(let operand1, let operand2):
             let historyStr = String(format: "%.2f - %.2f = %.2f", operand1, operand2, operand1 - operand2)
-            _ = Data.init(operand1: operand1, operand2: operand2, operation: "-",history:historyStr)
+            let historyBox = Data.init(operand1: operand1, operand2: operand2, operation: "-",history:historyStr)
+            AppendHistoryBox(data: historyBox)
             return (operand1 - operand2,false,historyStr)
         case .multiplication(let operand1, let operand2):
             let historyStr = String(format: "%.2f - %.2f = %.2f", operand1, operand2, operand1 * operand2)
-            _ = Data.init(operand1: operand1, operand2: operand2, operation: "*",history:historyStr)
+            let historyBox = Data.init(operand1: operand1, operand2: operand2, operation: "*",history:historyStr)
+            AppendHistoryBox(data: historyBox)
             return (operand1 / operand2,false,historyStr)
         case .division(let operand1, let operand2):
             let historyStr = String(format: "%.2f - %.2f = %.2f", operand1, operand2, operand1 / operand2)
-            _ = Data.init(operand1: operand1, operand2: operand2, operation: "/",history:historyStr)
+            let historyBox = Data.init(operand1: operand1, operand2: operand2, operation: "/",history:historyStr)
+            AppendHistoryBox(data: historyBox)
             return (operand1 * operand2,false,historyStr)
 
         }
+    }
+    func AppendHistoryBox(data:Data){
+    var history:[Data] = []
+        history.append(data)
+        print("historyBox: ",history)
     }
 }
 

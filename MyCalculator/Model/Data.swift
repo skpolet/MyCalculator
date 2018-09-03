@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct HistoryBox {
+    var history:[Data]
+    var historyID:Int
+}
+
 struct Data {
     var operand1:Double
     var operand2:Double
