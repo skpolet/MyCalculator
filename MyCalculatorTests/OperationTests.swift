@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import MyCalculator
 
 class OperationTests: XCTestCase {
     
@@ -25,10 +26,9 @@ class OperationTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        let action = Operation()
-
-        action.setData(operand1: 1, operand2: 2, operation: "+")
+        let str = Сalculating.addition(98.11,97.11)
+        print(str.evaluate())
+ 
     }
     
     func testPerformanceExample() {
@@ -39,48 +39,6 @@ class OperationTests: XCTestCase {
     }
     
 }
-class Operation: XCTest {
-    func setData(operand1: Int,  operand2: Int , operation: String) {
-        let data = Data()
-        data.operand1 = operand1
-        data.operand2 = operand2
-        data.operation = operation
-        print(calculating(data: data))
-        
-    }
-    func calculating(data: Data) -> (result:Int,error: Bool,history:String) {
-        //let data = Data()
-        var result :Int
 
-        switch data.operation {
-        case "+":
-            result = data.operand1! + data.operand2!
-            data.history = "\(data.operand1,data.operation,data.operand1,"=",result)"
-            return (result, false, data.history!)
-        case "-":
-            result = data.operand1! - data.operand2!
-            data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false, data.history!)
-        case "/":
-            result = data.operand1! / data.operand2!
-            data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false, data.history!)
-        case "*":
-            result = data.operand1! * data.operand2!
-            data.history = "\(data.operand1,data.operation,data.operand2,"=",result)"
-            return (result, false, data.history!)
-        default:
-            print("Operation not avalibale!")
-            return (0 , true,data.history!)
-        }
-       // var myString = String(x)
 
-    }
-}
 
-class Data : XCTest{
-    var operand1: Int?
-    var operand2: Int?
-    var operation: String?
-    var history: String?
-}

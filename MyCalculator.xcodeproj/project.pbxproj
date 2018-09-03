@@ -17,7 +17,7 @@
 		E1F6113321385699000C06CA /* MyCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6113221385699000C06CA /* MyCalculatorUITests.swift */; };
 		E1F6114121388813000C06CA /* OperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6114021388813000C06CA /* OperationTests.swift */; };
 		E1F6114421388882000C06CA /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6114321388882000C06CA /* Data.swift */; };
-		E1F61146213889D4000C06CA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F61145213889D4000C06CA /* Operation.swift */; };
+		E1F61146213889D4000C06CA /* Сalculating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F61145213889D4000C06CA /* Сalculating.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 		E1F6113421385699000C06CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1F6114021388813000C06CA /* OperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationTests.swift; sourceTree = "<group>"; };
 		E1F6114321388882000C06CA /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		E1F61145213889D4000C06CA /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		E1F61145213889D4000C06CA /* Сalculating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Сalculating.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,7 @@
 				E1F6111B21385698000C06CA /* LaunchScreen.storyboard */,
 				E1F6111E21385698000C06CA /* Info.plist */,
 				E1F6111621385695000C06CA /* MyCalculator.xcdatamodeld */,
-				E1F61145213889D4000C06CA /* Operation.swift */,
+				E1F61145213889D4000C06CA /* Сalculating.swift */,
 			);
 			path = MyCalculator;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
 				E1F6111021385695000C06CA /* AppDelegate.swift in Sources */,
 				E1F6114421388882000C06CA /* Data.swift in Sources */,
-				E1F61146213889D4000C06CA /* Operation.swift in Sources */,
+				E1F61146213889D4000C06CA /* Сalculating.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
