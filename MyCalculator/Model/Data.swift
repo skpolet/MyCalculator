@@ -8,26 +8,36 @@
 
 import Foundation
 
-struct HistoryBox {
-    var history:[Data]
-    var historyID:Int
+struct HistoryArr {
+    var historyArr: Array<HistoryBox>
 }
 
-struct Data {
-    var operand1:Double
-    var operand2:Double
-    var operation:String
-    var history:String
+struct HistoryBox {
+    var history: Array<Values>
+}
 
-    init(operand1:Double, operand2:Double, operation:String, history:String){
+struct Values {
+    let operand1:Double
+    let operand2:Double
+    var result:(Double)? = nil
+    var operation:(String)? = nil
+    var history:(String)? = nil
+
+    init(operand1:Double, operand2:Double){
         self.operand1 = operand1
         self.operand2 = operand2
-        self.operation = operation
-        self.history = history
-        print("property has been stored:",operand1,operand2,operation)
     }
-
+    mutating func addResult(result:Double){
+        self.result = result
+    }
+    mutating func addHistory(history:String){
+        self.history = history
+    }
+    mutating func addOperation(operation:String){
+        self.operation = operation
+    }
 }
+
 
 
 
