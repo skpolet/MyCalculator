@@ -10,10 +10,16 @@ import Foundation
 
 struct HistoryArr {
     var historyArr: Array<HistoryBox>
+    init(historyArr: Array<HistoryBox>) {
+        self.historyArr = historyArr
+    }
 }
 
 struct HistoryBox {
-    var history: Array<Values>
+    var historyBox: Array<Values>
+    init(historyBox: Array<Values>) {
+        self.historyBox = historyBox
+    }
 }
 
 struct Values {

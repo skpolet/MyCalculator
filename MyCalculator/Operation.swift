@@ -8,10 +8,37 @@
 
 import Foundation
 
-class Creator {
-    public var values: Values
-    public var history: HistoryBox? = nil
-    public var historyArr: HistoryArr? = nil
+class CreatorHistoryBox{
+    var historyBox: HistoryBox
+    init(historyBox: HistoryBox){
+        self.historyBox = historyBox
+    }
+    func initNewHistoryBox(historyBox: HistoryBox) ->HistoryBox{
+        self.historyBox = historyBox
+        return historyBox
+    }
+    func getHistoryBox() ->HistoryBox{
+        return self.historyBox
+    }
+}
+
+class CreatorHistoryArr{
+    var historyArr: HistoryArr
+    init(historyArr: HistoryArr) {
+        self.historyArr = historyArr
+    }
+    func initNewHistoryArr(historyArr: HistoryArr) ->HistoryArr{
+        self.historyArr = historyArr
+        return historyArr
+    }
+    func getHistoryArr() ->HistoryArr{
+        return self.historyArr
+    }
+}
+
+class CreatorValues {
+    var values: Values
+    
     init(values: Values){
         self.values = values
     }
@@ -29,21 +56,7 @@ class Creator {
         self.values = values
         return values
     }
-    func appendToHistoryBox(values: Values) -> HistoryBox{
-        var history = HistoryBox(history: [values])
-        history.history.append(values)
-        return history
-    }
-    func historyBoxToArr(historyBox: HistoryBox)  {
-        var histstoryArr = HistoryArr(historyArr: [historyBox])
-        histstoryArr.historyArr.append(historyBox)
-    }
-    func getHistoryBox() ->HistoryBox{
-        return self.history!
-    }
-    func getHistoryArr() ->HistoryArr{
-        return self.historyArr!
-    }
+
 enum Operation {
 
     case addition()  //сложение
@@ -51,33 +64,40 @@ enum Operation {
     case multiplication()  //умножение
     case division()  //деление
     
-    func evaluate(creator:Creator) {
+    func evaluate(creator:CreatorValues) {
         let values = creator.values
         switch self {
-            
         case .addition():
             let historyStr = String(format: "%.2f + %.2f = %.2f", values.operand1 , values.operand2 , values.operand1 + values.operand2 )
             let toHistoryBox = creator.initNewValues(operand1:values.operand1, operand2:values.operand2, operation: "+", history:historyStr, result: values.operand1 + values.operand2)
-            let toHistoryArr = creator.appendToHistoryBox(values: toHistoryBox)
-            creator.historyBoxToArr(historyBox: toHistoryArr)
-            
+            let initArrValues = [toHistoryBox]
+            let historyBoxInit = HistoryBox.init(historyBox: initArrValues)
+            let initArrBoxes = [historyBoxInit]
+            _ = CreatorHistoryArr.init(historyArr: HistoryArr.init(historyArr: initArrBoxes))
+
         case .substraction():
             let historyStr = String(format: "%.2f - %.2f = %.2f", values.operand1 , values.operand2 , values.operand1 - values.operand2 )
             let toHistoryBox = creator.initNewValues(operand1:values.operand1, operand2:values.operand2, operation: "-", history:historyStr, result: values.operand1 + values.operand2)
-            let toHistoryArr = creator.appendToHistoryBox(values: toHistoryBox)
-            creator.historyBoxToArr(historyBox: toHistoryArr)
+            let initArrValues = [toHistoryBox]
+            let historyBoxInit = HistoryBox.init(historyBox: initArrValues)
+            let initArrBoxes = [historyBoxInit]
+            _ = CreatorHistoryArr.init(historyArr: HistoryArr.init(historyArr: initArrBoxes))
             
         case .multiplication():
             let historyStr = String(format: "%.2f * %.2f = %.2f", values.operand1 , values.operand2 , values.operand1 * values.operand2 )
             let toHistoryBox = creator.initNewValues(operand1:values.operand1, operand2:values.operand2, operation: "*", history:historyStr, result: values.operand1 + values.operand2)
-            let toHistoryArr = creator.appendToHistoryBox(values: toHistoryBox)
-            creator.historyBoxToArr(historyBox: toHistoryArr)
+            let initArrValues = [toHistoryBox]
+            let historyBoxInit = HistoryBox.init(historyBox: initArrValues)
+            let initArrBoxes = [historyBoxInit]
+            _ = CreatorHistoryArr.init(historyArr: HistoryArr.init(historyArr: initArrBoxes))
             
         case .division():
             let historyStr = String(format: "%.2f / %.2f = %.2f", values.operand1 , values.operand2 , values.operand1 / values.operand2 )
             let toHistoryBox = creator.initNewValues(operand1:values.operand1, operand2:values.operand2, operation: "/", history:historyStr, result: values.operand1 + values.operand2)
-            let toHistoryArr = creator.appendToHistoryBox(values: toHistoryBox)
-            creator.historyBoxToArr(historyBox: toHistoryArr)
+            let initArrValues = [toHistoryBox]
+            let historyBoxInit = HistoryBox.init(historyBox: initArrValues)
+            let initArrBoxes = [historyBoxInit]
+            _ = CreatorHistoryArr.init(historyArr: HistoryArr.init(historyArr: initArrBoxes))
             }
         }
     }
