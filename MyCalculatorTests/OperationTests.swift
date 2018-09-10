@@ -37,7 +37,8 @@ class OperationTests: XCTestCase {
             print(checkError)
         }
         
-        
+        let factorial = ExpressionWhole.factorial(5)
+        print(factorial.calculate())
         
         let expression = Expression.add(Expression.value(2), Expression.add(Expression.unaryMinus(Expression.value(3)), Expression.value(4)))
         
