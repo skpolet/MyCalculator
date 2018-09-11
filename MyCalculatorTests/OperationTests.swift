@@ -37,17 +37,35 @@ class OperationTests: XCTestCase {
             print(checkError)
         }
         
-        let factorial = ExpressionWhole.factorial(5)
+//        let factorial = ExpressionWhole.factorial(5)
+//        print(factorial.calculate())
+//
+//        let expression = Expression.add(Expression.value(2), Expression.add(Expression.unaryMinus(Expression.value(3)), Expression.value(4)))
+        
+        
+        let expressionAdd: Expression = .binary(.add, .value(2), .value(2))
+        let expressionDivide: Expression = .binary(.division, .value(10), .value(2))
+        let expressionSubtract: Expression = .binary(.multiply, expressionDivide, expressionAdd)
+        
+        let result = expressionSubtract.calculate()
+        
+        let expressionStorage: ExpressionBox = .expressionStorage(expressionSubtract)
+        let expressionStorageResult = expressionStorage.saveHistory()
+        let historyStorage: HistoryBox = .historyStorage(expressionStorage)
+        let historyStorageResult = historyStorage.saveHistoryBox()
+        
+        print("\(result)")
+        print("\(expressionStorageResult)","\(historyStorageResult)")
+        
+        let factorial: WholeNumberOperation = .factorial(5)
         print(factorial.calculate())
         
-        let expression = Expression.add(Expression.value(2), Expression.add(Expression.unaryMinus(Expression.value(3)), Expression.value(4)))
+
         
-        print(expression.calculate())
-        let newExpression = Expression.add(
-            expression,
-            Expression.value(10)
-        )
-        print(newExpression.calculate())
+        //let divisionOfZero = Expression.division(Expression.value(4), Expression.value(0))
+        //print(divisionOfZero)
+        
+
     }
     
     func testPerformanceExample() {
