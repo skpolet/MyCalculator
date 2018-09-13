@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E127B8F62141618C00E48F16 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8F52141618C00E48F16 /* DataStore.swift */; };
 		E127B8FA214449AB00E48F16 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8F9214449AB00E48F16 /* Expression.swift */; };
 		E127B8FC2146958F00E48F16 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8FB2146958F00E48F16 /* Errors.swift */; };
 		E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182669C21471DF400F284B8 /* ExpressionBox.swift */; };
@@ -17,11 +16,8 @@
 		E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111621385695000C06CA /* MyCalculator.xcdatamodeld */; };
 		E1F6111A21385698000C06CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111921385698000C06CA /* Assets.xcassets */; };
 		E1F6111D21385698000C06CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111B21385698000C06CA /* LaunchScreen.storyboard */; };
-		E1F6112821385699000C06CA /* MyCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6112721385699000C06CA /* MyCalculatorTests.swift */; };
 		E1F6113321385699000C06CA /* MyCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6113221385699000C06CA /* MyCalculatorUITests.swift */; };
 		E1F6114121388813000C06CA /* OperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6114021388813000C06CA /* OperationTests.swift */; };
-		E1F6114421388882000C06CA /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6114321388882000C06CA /* Data.swift */; };
-		E1F61146213889D4000C06CA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F61145213889D4000C06CA /* Operation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E127B8F52141618C00E48F16 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		E127B8F9214449AB00E48F16 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 		E127B8FB2146958F00E48F16 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E182669C21471DF400F284B8 /* ExpressionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBox.swift; sourceTree = "<group>"; };
@@ -55,14 +50,11 @@
 		E1F6111C21385698000C06CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1F6111E21385698000C06CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1F6112321385699000C06CA /* MyCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1F6112721385699000C06CA /* MyCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalculatorTests.swift; sourceTree = "<group>"; };
 		E1F6112921385699000C06CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1F6112E21385699000C06CA /* MyCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F6113221385699000C06CA /* MyCalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalculatorUITests.swift; sourceTree = "<group>"; };
 		E1F6113421385699000C06CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1F6114021388813000C06CA /* OperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationTests.swift; sourceTree = "<group>"; };
-		E1F6114321388882000C06CA /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		E1F61145213889D4000C06CA /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +113,6 @@
 				E1F6111B21385698000C06CA /* LaunchScreen.storyboard */,
 				E1F6111E21385698000C06CA /* Info.plist */,
 				E1F6111621385695000C06CA /* MyCalculator.xcdatamodeld */,
-				E1F61145213889D4000C06CA /* Operation.swift */,
 				E127B8F9214449AB00E48F16 /* Expression.swift */,
 				E182669C21471DF400F284B8 /* ExpressionBox.swift */,
 				E127B8FB2146958F00E48F16 /* Errors.swift */,
@@ -132,7 +123,6 @@
 		E1F6112621385699000C06CA /* MyCalculatorTests */ = {
 			isa = PBXGroup;
 			children = (
-				E1F6112721385699000C06CA /* MyCalculatorTests.swift */,
 				E1F6114021388813000C06CA /* OperationTests.swift */,
 				E1F6112921385699000C06CA /* Info.plist */,
 			);
@@ -151,8 +141,6 @@
 		E1F611422138882A000C06CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E1F6114321388882000C06CA /* Data.swift */,
-				E127B8F52141618C00E48F16 /* DataStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,14 +277,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1F6111221385695000C06CA /* ViewController.swift in Sources */,
-				E127B8F62141618C00E48F16 /* DataStore.swift in Sources */,
 				E127B8FA214449AB00E48F16 /* Expression.swift in Sources */,
 				E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */,
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
 				E127B8FC2146958F00E48F16 /* Errors.swift in Sources */,
 				E1F6111021385695000C06CA /* AppDelegate.swift in Sources */,
-				E1F6114421388882000C06CA /* Data.swift in Sources */,
-				E1F61146213889D4000C06CA /* Operation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F6112821385699000C06CA /* MyCalculatorTests.swift in Sources */,
 				E1F6114121388813000C06CA /* OperationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

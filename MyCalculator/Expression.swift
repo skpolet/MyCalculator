@@ -12,22 +12,13 @@ typealias ValueType = Double
 
 indirect enum Expression {
 
-    indirect enum UnaryOperation {
+     enum UnaryOperation {
         case unaryMinus
-        case percentageOfhundred(ValueType)
-        case squareOfANumber(ValueType)
-        case cubeOfANumber(ValueType)
         
         func calculate(_ expression: Expression) -> ValueType {
             switch self {
             case .unaryMinus:
                 return -1 * expression.calculate()
-            case .percentageOfhundred:
-                return expression.calculate() / 100
-            case .squareOfANumber:
-                return expression.calculate() * expression.calculate()
-            case .cubeOfANumber:
-                return expression.calculate() * expression.calculate() * expression.calculate()
             }
         }
     }
@@ -38,7 +29,6 @@ indirect enum Expression {
         case minus
         case multiply
         case division
-        case percentageOfvalue
         
         func calculate(_ left: Expression, _ right: Expression) -> ValueType {
             switch self {
@@ -50,11 +40,9 @@ indirect enum Expression {
                 return left.calculate() * right.calculate()
             case .division:
                 return left.calculate() / right.calculate()
-            case .percentageOfvalue:
-                return Double(left.calculate()) * 100.0 / Double(right.calculate())
             }
+        }
     }
-}
 
     case value(ValueType)
     case unary(UnaryOperation, Expression)
@@ -71,18 +59,6 @@ indirect enum Expression {
         }
     }
 }
-enum WholeNumberOperation {
-    case factorial(Int)
-    
-    func calculate() -> Int {
-        switch self {
-        case .factorial(var intNumber):
-            for index in 1...intNumber{
-                intNumber = index * intNumber
-            }
-            return intNumber
-        }
-    }
-}
+
 
 

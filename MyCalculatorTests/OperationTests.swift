@@ -27,45 +27,37 @@ class OperationTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-//        let creatorValues = CreatorValues.init(values: Values.init(operand1: 98.11, operand2: 98.11))
-//        let str = CreatorValues.Operation.addition()
-//        str.evaluate(creator: creatorValues)
-//        print("all data :",creatorValues)
-//        print("result :",creatorValues.getValues().result as Any)
         let checkError = Error.ifInt(4)
         if(checkError.checkValue()){
             print(checkError)
         }
+
+        // простое выражение
+        let simpleExpression: Expression = .binary(.add, .value(1), .value(2))
+        var result = simpleExpression.calculate()
+        print("\(result)")
+        XCTAssertEqual(result, 3.0)
         
-//        let factorial = ExpressionWhole.factorial(5)
-//        print(factorial.calculate())
-//
-//        let expression = Expression.add(Expression.value(2), Expression.add(Expression.unaryMinus(Expression.value(3)), Expression.value(4)))
+        // выражение с вложенными выражениями
+        let hardExpression: Expression = .binary(.add, .binary(.multiply, .value(2), .value(2)), .unary(.unaryMinus, .value(3)))
+        result = hardExpression.calculate()
+        print("\(result)")
+        XCTAssertEqual(result, 1.0)
         
-        
-        let expressionAdd: Expression = .binary(.add, .value(2), .value(2))
-        let expressionDivide: Expression = .binary(.division, .value(10), .value(2))
-        let expressionSubtract: Expression = .binary(.multiply, expressionDivide, expressionAdd)
-        
-        let result = expressionSubtract.calculate()
-        
-        let expressionStorage: ExpressionBox = .expressionStorage(expressionSubtract)
+        // сохранение в историю
+        let expressionStorage: ExpressionBox = .expressionStorage(hardExpression)
         let expressionStorageResult = expressionStorage.saveHistory()
         let historyStorage: HistoryBox = .historyStorage(expressionStorage)
         let historyStorageResult = historyStorage.saveHistoryBox()
-        
-        print("\(result)")
         print("\(expressionStorageResult)","\(historyStorageResult)")
         
-        let factorial: WholeNumberOperation = .factorial(5)
-        print(factorial.calculate())
-        
-
-        
-        //let divisionOfZero = Expression.division(Expression.value(4), Expression.value(0))
-        //print(divisionOfZero)
-        
-
+        // вывод из истории
+        for box in historyStorage.saveHistoryBox(){
+            for expression in box.saveHistory(){
+                print(expression.calculate())
+                XCTAssertEqual(result, 1.0)
+            }
+        }
     }
     
     func testPerformanceExample() {
@@ -74,7 +66,6 @@ class OperationTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
 }
 
 

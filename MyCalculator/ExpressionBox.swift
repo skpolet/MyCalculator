@@ -20,6 +20,7 @@ enum ExpressionBox{
         }
     }
 }
+
 enum HistoryBox {
     case historyStorage(ExpressionBox)
     func saveHistoryBox() -> Array<ExpressionBox> {

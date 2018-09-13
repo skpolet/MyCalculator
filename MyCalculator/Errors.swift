@@ -12,16 +12,15 @@ import Foundation
 
  enum Error{
     
-    case ifDouble(Double)
+    case ifDouble(ValueType)
     case ifInt(Int)
     
     func checkValue() -> Bool {
         switch self {
         case .ifDouble(let value):
-            return type(of: value) == Double.self ? true : false
+            return type(of: value) == ValueType.self ? true : false
         case .ifInt(let value):
             return type(of: value) == Int.self ? true : false
-
         }
     }
 }
