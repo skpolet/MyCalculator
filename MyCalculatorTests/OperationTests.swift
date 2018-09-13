@@ -56,7 +56,7 @@ class OperationTests: XCTestCase {
             for expression in box.expressionBox.saveHistory(){
                 print(expression.calculate())
                 print("name box : ", box.nameBox)
-                XCTAssertEqual(result, 1.0)
+                XCTAssertEqual(expression.calculate(), 1.0)
             }
         }
     }
