@@ -8,8 +8,10 @@
 
 import Foundation
 
+typealias NameBox = String
+
 enum ExpressionBox{
-    case expressionStorage(Expression)
+    case expressionStorage(expression: Expression)
     
     func saveHistory() -> Array<Expression> {
         switch self {
@@ -22,13 +24,18 @@ enum ExpressionBox{
 }
 
 enum HistoryBox {
-    case historyStorage(ExpressionBox)
-    func saveHistoryBox() -> Array<ExpressionBox> {
+    case historyStorage(expressionBox: ExpressionBox, nameBox: NameBox)
+    func saveHistoryBox() -> Array<(expressionBox: ExpressionBox,nameBox: NameBox)> {
         switch self {
-        case .historyStorage(let expression):
-            var historyArr = [ExpressionBox]()
-            historyArr.append(expression)
-            return historyArr
+        case .historyStorage(let expression, var name):
+            var historyArr = [(expressionBox: ExpressionBox,nameBox: NameBox)]()
+            if(name == ""){
+               name = "Рассчет без названия"
+            }
+            let tupleHistory : (expressionBox: ExpressionBox,nameBox: NameBox)
+            tupleHistory = (expression, name)
+            historyArr.append(tupleHistory)
+            return [tupleHistory]
         }
     }
 }

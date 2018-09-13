@@ -45,16 +45,17 @@ class OperationTests: XCTestCase {
         XCTAssertEqual(result, 1.0)
         
         // сохранение в историю
-        let expressionStorage: ExpressionBox = .expressionStorage(hardExpression)
+        let expressionStorage: ExpressionBox = .expressionStorage(expression: hardExpression)
         let expressionStorageResult = expressionStorage.saveHistory()
-        let historyStorage: HistoryBox = .historyStorage(expressionStorage)
+        let historyStorage: HistoryBox = .historyStorage(expressionBox: expressionStorage, nameBox: "Рассчет 1")
         let historyStorageResult = historyStorage.saveHistoryBox()
         print("\(expressionStorageResult)","\(historyStorageResult)")
         
         // вывод из истории
         for box in historyStorage.saveHistoryBox(){
-            for expression in box.saveHistory(){
+            for expression in box.expressionBox.saveHistory(){
                 print(expression.calculate())
+                print("name box : ", box.nameBox)
                 XCTAssertEqual(result, 1.0)
             }
         }
