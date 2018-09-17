@@ -8,8 +8,6 @@
 
 import Foundation
 
-//typealias ValueType = Double
-
  enum Error{
     
     case ifDouble(ValueType)

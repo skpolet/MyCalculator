@@ -10,64 +10,84 @@ import XCTest
 @testable import MyCalculator
 
 class OperationTests: XCTestCase {
-    
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-        let checkError = Error.ifInt(4)
-        if(checkError.checkValue()){
-            print(checkError)
+    func expression1() -> Expression{
+        // простое выражение
+        let simpleExpression: Expression = .binary(.add, .value(1), .value(2))
+        let result = simpleExpression.calculate()
+        print("\(result)")
+        XCTAssertEqual(result, 3.0)
+        return simpleExpression
+    }
+    
+    func expression2() -> Expression{
+        // выражение с вложенными выражениями
+        let hardExpression: Expression = .binary(.add, .binary(.multiply, .value(2), .value(2)), .unary(.unaryMinus, .value(3)))
+        let result = hardExpression.calculate()
+        print("\(result)")
+        XCTAssertEqual(result, 1.0)
+        return hardExpression
+    }
+    
+    func testSumExpression() {
+        expression1()
+    }
+    func testHardExpression() {
+        expression2()
+    }
+    
+    func testSaveToHistory(){
+        let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
+        var history = History(blocks: [block])
+        history.appendToLastBlock(expression2())
+        print("history: ",history)
+    }
+    
+    func testExtractFromHistory(){
+        let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
+        var history = History(blocks: [block])
+        history.appendToLastBlock(expression2())
+        for expression in block.expressions{
+            print("result: ",expression.calculate())
+            XCTAssertEqual(expression.calculate(), 3.0)
         }
-
+    }
+    
+    func testGetLastExpressionResult(){
+        // моделируем ситуацию как на макете, когда каждое следующее выражение начинается с результата предыдущего
         // простое выражение
         let simpleExpression: Expression = .binary(.add, .value(1), .value(2))
         var result = simpleExpression.calculate()
         print("\(result)")
-        XCTAssertEqual(result, 3.0)
         
-        // выражение с вложенными выражениями
-        let hardExpression: Expression = .binary(.add, .binary(.multiply, .value(2), .value(2)), .unary(.unaryMinus, .value(3)))
+        //добавление в историю
+        let block = History.Block.init(name: "Новый блок", expressions: [simpleExpression])
+        var history = History(blocks: [block])
+        history.appendToLastBlock(simpleExpression)
+        
+        // выражение со сложением к предыдущему
+        let hardExpression: Expression = .binary(.add, .value(result), . value(2))
         result = hardExpression.calculate()
-        print("\(result)")
-        XCTAssertEqual(result, 1.0)
-        
-        // сохранение в историю
-        let expressionStorage: ExpressionBox = .expressionStorage(expression: hardExpression)
-        let expressionStorageResult = expressionStorage.saveHistory()
-        let historyStorage: HistoryBox = .historyStorage(expressionBox: expressionStorage, nameBox: "Рассчет 1")
-        let historyStorageResult = historyStorage.saveHistoryBox()
-        print("\(expressionStorageResult)","\(historyStorageResult)")
-        
-        // вывод из истории
-        for box in historyStorage.saveHistoryBox(){
-            for expression in box.expressionBox.saveHistory(){
-                print(expression.calculate())
-                print("name box : ", box.nameBox)
-                XCTAssertEqual(expression.calculate(), 1.0)
-            }
-        }
+        history.appendToLastBlock(hardExpression)
+        XCTAssertEqual(block.expressions.last?.calculate(), 5.0)
+        print("\(String(describing: block.expressions.last?.calculate()))")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testGetIndexBlock(){
+        let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
+        var history = History(blocks: [block])
+        history.appendToLastBlock(expression2())
+        print("index Block: ",history.getIndexBlock(block: block))
     }
-}
+    
+    func testGetIndexExpression(){
+        let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
+        var history = History(blocks: [block])
+        history.appendToLastBlock(expression2())
+        print("index Expression: ",history.getIndexExpression(expression: expression1(), block: block))
+        
+    }
 
+}
 
 

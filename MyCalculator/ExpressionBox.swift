@@ -10,32 +10,59 @@ import Foundation
 
 typealias NameBox = String
 
-enum ExpressionBox{
-    case expressionStorage(expression: Expression)
-    
-    func saveHistory() -> Array<Expression> {
-        switch self {
-        case .expressionStorage(let expression):
-            var historyArr = [Expression]()
-            historyArr.append(expression)
-            return historyArr
+struct History {
+    struct Block : Equatable {
+        var name: String
+        var expressions: [Expression]
+        
+        static func ==(lhs: Block, rhs: Block) -> Bool {
+            return lhs == rhs
         }
+    }
+    
+    var blocks: [Block]
+
+    mutating func appendToLastBlock(_ expression: Expression) {
+        if blocks.isEmpty {
+            blocks = [ Block(name: "", expressions: [ expression ]) ]
+        } else {
+            blocks[blocks.count - 1].expressions.append(expression)
+        }
+    }
+    mutating func addBlock(name: String) {
+        blocks.append(Block(name: name, expressions: []))
+    }
+    
+    mutating func getIndexBlock(block: Block) ->Int{
+        var result : Int? = nil
+        if(result == nil){
+        for (index, element) in blocks.enumerated() {
+            if(block == element){
+                result = index
+                return result!
+                }
+            }
+        }
+    return result!
+}
+    
+    mutating func getIndexExpression(expression: Expression, block: Block) ->Int{
+        var result : Int? = nil
+        if(result == nil){
+        for (index, element) in blocks[getIndexBlock(block: block)].expressions.enumerated() {
+            if(expression == element){
+                result = index
+                return result!
+            }
+        }
+    }
+    return result!
+}
+    mutating func editExpressionInBlock( expressionOld: Expression, expressionNew: Expression, block: Block){
+        blocks[getIndexBlock(block: block)].expressions[getIndexExpression(expression: expressionOld, block: block)] = expressionNew
+    }
+    mutating func deleteBlock(blockIn: Block){
+        blocks.remove(at: getIndexBlock(block: blockIn))
     }
 }
 
-enum HistoryBox {
-    case historyStorage(expressionBox: ExpressionBox, nameBox: NameBox)
-    func saveHistoryBox() -> Array<(expressionBox: ExpressionBox,nameBox: NameBox)> {
-        switch self {
-        case .historyStorage(let expression, var name):
-            var historyArr = [(expressionBox: ExpressionBox,nameBox: NameBox)]()
-            if(name == ""){
-               name = "Рассчет без названия"
-            }
-            let tupleHistory : (expressionBox: ExpressionBox,nameBox: NameBox)
-            tupleHistory = (expression, name)
-            historyArr.append(tupleHistory)
-            return [tupleHistory]
-        }
-    }
-}

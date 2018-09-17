@@ -105,7 +105,6 @@
 		E1F6110E21385695000C06CA /* MyCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				E1F611422138882A000C06CA /* Model */,
 				E1F6110F21385695000C06CA /* AppDelegate.swift */,
 				E1F6111121385695000C06CA /* ViewController.swift */,
 				E1F6111321385695000C06CA /* Main.storyboard */,
@@ -136,13 +135,6 @@
 				E1F6113421385699000C06CA /* Info.plist */,
 			);
 			path = MyCalculatorUITests;
-			sourceTree = "<group>";
-		};
-		E1F611422138882A000C06CA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
