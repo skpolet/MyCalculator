@@ -59,7 +59,7 @@ class OperationTests: XCTestCase {
         var result = simpleExpression.calculate()
         print("\(result)")
         
-        //добавление в историю
+        // добавление в историю
         let block = History.Block.init(name: "Новый блок", expressions: [simpleExpression])
         var history = History(blocks: [block])
         history.appendToLastBlock(simpleExpression)
@@ -73,6 +73,8 @@ class OperationTests: XCTestCase {
     }
     
     func testAddingMultiplyExpressionToBlock(){
+        // добавляю несколько выражений в блок и проверяю их кол-во
+        
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         history.appendToLastBlock(expression2())
@@ -80,6 +82,9 @@ class OperationTests: XCTestCase {
     }
     
     func testAddingMultiplyBlocksToHistoryArr(){
+        // добавляю несколько блоков и в каждый по несколько выражений.
+        // один блок в конце удаляю, и проверяю кол-во оставшихся блоков
+        
         let block1 = History.Block.init(name: "Новый блок1", expressions: [expression1()])
         var history = History(blocks: [block1])
         history.appendToLastBlock(expression2())
@@ -92,6 +97,8 @@ class OperationTests: XCTestCase {
     }
     
     func testGetLastExpressionFromBlock(){
+        // получаю результат последнего выражения из блока
+        
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         let result =  history.getLastExpressionFromBlock(block: block)
@@ -99,6 +106,8 @@ class OperationTests: XCTestCase {
     }
     
     func testChangeNameBlock(){
+        // тест на изменение имени блока
+        
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         history.changeNameBlock(indexBlock: [block].count - 1, newName: "Измененное имя")
@@ -106,11 +115,15 @@ class OperationTests: XCTestCase {
     }
     
     func testValueIsDouble(){
+        // проверка на соответствие значения типу Double
+        
         let result = expression1().calculate()
         assert((result as Any) is Double)
     }
     
     func testDivisionByZero(){
+        // деление на 0
+        
         let result = expression1().calculate() / 0
         if(result.isInfinite){
             print("Результат равен бесконечности")
@@ -119,6 +132,8 @@ class OperationTests: XCTestCase {
     }
     
     func testExpressionWithSquareOfNumber(){
+        // квадрат числа
+        
         var result = expression1().calculate()
         result = result * result
         if(result.isInfinite){
@@ -128,6 +143,8 @@ class OperationTests: XCTestCase {
     }
     
     func testExpressionWithDoubleMax() {
+        //сложение двух Double.max
+        
         let valueMax = Double.greatestFiniteMagnitude
         let result = valueMax + valueMax
         if(result.isInfinite){
@@ -137,6 +154,8 @@ class OperationTests: XCTestCase {
     }
     
     func testExpressionWithDoubleMin(){
+        //сложение двух Double.min
+        
         let valueMin = Double.leastNormalMagnitude
         let result = valueMin + valueMin
         if(result.isInfinite){
