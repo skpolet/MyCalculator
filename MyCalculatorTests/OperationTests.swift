@@ -135,7 +135,6 @@ class OperationTests: XCTestCase {
             XCTAssertEqual(result, Double.infinity)
         }
     }
-
 }
 
 
