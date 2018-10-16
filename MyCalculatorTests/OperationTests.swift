@@ -118,6 +118,15 @@ class OperationTests: XCTestCase {
         }
     }
     
+    func testExpressionWithSquareOfNumber(){
+        var result = expression1().calculate()
+        result = result * result
+        if(result.isInfinite){
+            print("Результат равен бесконечности")
+            XCTAssertEqual(result, Double.infinity)
+        }
+    }
+    
     func testExpressionWithDoubleMax() {
         let valueMax = Double.greatestFiniteMagnitude
         let result = valueMax + valueMax
