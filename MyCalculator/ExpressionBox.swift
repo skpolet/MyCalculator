@@ -11,13 +11,10 @@ import Foundation
 typealias NameBox = String
 
 struct History {
-    struct Block : Equatable {
+    struct Block {
         var name: String
         var expressions: [Expression]
         
-        static func ==(lhs: Block, rhs: Block) -> Bool {
-            return lhs == rhs
-        }
     }
     
     var blocks: [Block]
@@ -29,40 +26,26 @@ struct History {
             blocks[blocks.count - 1].expressions.append(expression)
         }
     }
+    
+    mutating func appendToBlocksArr(block: Block){
+        blocks.append(block)
+    }
+    
+    mutating func changeNameBlock(indexBlock: Int, newName: String){
+        blocks[indexBlock].name = newName
+    }
+    
     mutating func addBlock(name: String) {
         blocks.append(Block(name: name, expressions: []))
     }
+
+    mutating func deleteBlockAtIndex(index: Int){
+        blocks.remove(at: index)
+    }
     
-    mutating func getIndexBlock(block: Block) ->Int{
-        var result : Int? = nil
-        if(result == nil){
-        for (index, element) in blocks.enumerated() {
-            if(block == element){
-                result = index
-                return result!
-                }
-            }
-        }
-    return result!
-}
-    
-    mutating func getIndexExpression(expression: Expression, block: Block) ->Int{
-        var result : Int? = nil
-        if(result == nil){
-        for (index, element) in blocks[getIndexBlock(block: block)].expressions.enumerated() {
-            if(expression == element){
-                result = index
-                return result!
-            }
-        }
-    }
-    return result!
-}
-    mutating func editExpressionInBlock( expressionOld: Expression, expressionNew: Expression, block: Block){
-        blocks[getIndexBlock(block: block)].expressions[getIndexExpression(expression: expressionOld, block: block)] = expressionNew
-    }
-    mutating func deleteBlock(blockIn: Block){
-        blocks.remove(at: getIndexBlock(block: blockIn))
+    mutating func getLastExpressionFromBlock(block: Block) ->Expression{
+        return block.expressions[block.expressions.count - 1]
     }
 }
+
 

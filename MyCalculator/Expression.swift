@@ -11,10 +11,6 @@ import Foundation
 typealias ValueType = Double
 
 indirect enum Expression : Equatable {
-    
-    static func ==(lhs: Expression, rhs: Expression) -> Bool {
-        return lhs == rhs
-    }
 
      enum UnaryOperation {
         case unaryMinus
