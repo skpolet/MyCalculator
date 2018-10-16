@@ -52,26 +52,6 @@ class OperationTests: XCTestCase {
         }
     }
     
-    func testGetLastExpressionResult(){
-        // моделируем ситуацию как на макете, когда каждое следующее выражение начинается с результата предыдущего
-        // простое выражение
-        let simpleExpression: Expression = .binary(.add, .value(1), .value(2))
-        var result = simpleExpression.calculate()
-        print("\(result)")
-        
-        // добавление в историю
-        let block = History.Block.init(name: "Новый блок", expressions: [simpleExpression])
-        var history = History(blocks: [block])
-        history.appendToLastBlock(simpleExpression)
-        
-        // выражение со сложением к предыдущему
-        let hardExpression: Expression = .binary(.add, .value(result), . value(2))
-        result = hardExpression.calculate()
-        history.appendToLastBlock(hardExpression)
-        XCTAssertEqual(block.expressions.last?.calculate(), 3.0)
-        print("\(String(describing: block.expressions.last?.calculate()))")
-    }
-    
     func testAddingMultiplyExpressionToBlock(){
         // добавляю несколько выражений в блок и проверяю их кол-во
         
