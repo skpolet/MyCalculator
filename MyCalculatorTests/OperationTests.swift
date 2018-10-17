@@ -26,20 +26,13 @@ class OperationTests: XCTestCase {
     func testSumExpression() {
         let result = expression1().calculate()
         print("\(result)")
-        XCTAssertEqual(result, 3.0)
+        XCTAssertEqual(result, 3.0, "Результат должен быть равен 3")
     }
     
     func testHardExpression() {
         let result = expression2().calculate()
         print("\(result)")
-        XCTAssertEqual(result, 1.0)
-    }
-    
-    func testSaveToHistory(){
-        let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
-        var history = History(blocks: [block])
-        history.appendToLastBlock(expression2())
-        print("history: ",history)
+        XCTAssertEqual(result, 1, "Результат должен быть равен 1")
     }
     
     func testExtractFromHistory(){
@@ -47,8 +40,7 @@ class OperationTests: XCTestCase {
         var history = History(blocks: [block])
         history.appendToLastBlock(expression2())
         for expression in block.expressions{
-            print("result: ",expression.calculate())
-            XCTAssertEqual(expression.calculate(), 3.0)
+            XCTAssertEqual(expression.calculate(), 3, "Результат должен быть равен 3")
         }
     }
     
@@ -58,7 +50,7 @@ class OperationTests: XCTestCase {
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         history.appendToLastBlock(expression2())
-        XCTAssertEqual(history.blocks[history.blocks.count - 1].expressions.count, 2)
+        XCTAssertEqual(history.blocks[history.blocks.count - 1].expressions.count, 2, "Результат должен быть равен 2")
     }
     
     func testAddingMultiplyBlocksToHistoryArr(){
@@ -73,7 +65,7 @@ class OperationTests: XCTestCase {
         history.appendToBlocksArr(block: block2)
         history.appendToLastBlock(expression2())
         history.deleteBlockAtIndex(index: history.blocks.count - 1)
-        XCTAssertEqual(history.blocks.count, 1)
+        XCTAssertEqual(history.blocks.count, 1, "Результат должен быть равен 1")
     }
     
     func testGetLastExpressionFromBlock(){
@@ -82,7 +74,7 @@ class OperationTests: XCTestCase {
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         let result =  history.getLastExpressionFromBlock(block: block)
-        XCTAssertEqual(result.calculate(), 3)
+        XCTAssertEqual(result.calculate(), 3, "Результат должен быть равен 3")
     }
     
     func testChangeNameBlock(){
@@ -91,57 +83,42 @@ class OperationTests: XCTestCase {
         let block = History.Block.init(name: "Новый блок", expressions: [expression1()])
         var history = History(blocks: [block])
         history.changeNameBlock(indexBlock: [block].count - 1, newName: "Измененное имя")
-        XCTAssertEqual(history.blocks[history.blocks.count - 1].name, "Измененное имя")
+        XCTAssertEqual(history.blocks[history.blocks.count - 1].name, "Измененное имя", "Тест на изменение имени блока пройден")
     }
     
     func testValue(){
         // проверка значения
 
         let simpleExpression: Expression = .value(5)
-        XCTAssertEqual(simpleExpression.calculate(), 5)
+        XCTAssertEqual(simpleExpression.calculate(), 5, "Результат должен быть равен 5")
     }
     
     func testDivisionByZero(){
         // деление на 0
         
         let simpleExpression: Expression = .binary(.division, .value(3), .value(0))
-        if(simpleExpression.calculate().isInfinite){
-            print("Результат равен бесконечности")
-            XCTAssertEqual(simpleExpression.calculate(), Double.infinity)
-        }
+        XCTAssertTrue(simpleExpression.calculate().isInfinite, "Результат должен быть равен бесконечности")
     }
     
     func testExpressionWithSquareOfNumber(){
         // квадрат числа
         
-        var result = expression1().calculate()
-        result = result * result
-        if(result.isInfinite){
-            print("Результат равен бесконечности")
-            XCTAssertEqual(result, Double.infinity)
-        }
+        let simpleExpression: Expression = .binary(.multiply, .value(3), .value(3))
+        XCTAssertEqual(simpleExpression.calculate(), 9, "Результат должен быть равен 9")
     }
     
     func testExpressionWithDoubleMax() {
         //сложение двух Double.max
         
-        let valueMax = Double.greatestFiniteMagnitude
-        let result = valueMax + valueMax
-        if(result.isInfinite){
-            print("Результат равен бесконечности")
-            XCTAssertEqual(result, Double.infinity)
-        }
+        let simpleExpression: Expression = .binary(.add, .value(Double.greatestFiniteMagnitude), .value(Double.greatestFiniteMagnitude))
+        XCTAssertTrue(simpleExpression.calculate().isInfinite, "Результат должен быть равен бесконечности")
     }
     
     func testExpressionWithDoubleMin(){
         //сложение двух Double.min
         
-        let valueMin = Double.leastNormalMagnitude
-        let result = valueMin + valueMin
-        if(result.isInfinite){
-            print("Результат равен бесконечности")
-            XCTAssertEqual(result, Double.infinity)
-        }
+        let simpleExpression: Expression = .binary(.add, .value(Double.leastNormalMagnitude), .value(Double.leastNormalMagnitude))
+        XCTAssertTrue(simpleExpression.calculate().isInfinite, "Результат должен быть равен бесконечности")
     }
 }
 
