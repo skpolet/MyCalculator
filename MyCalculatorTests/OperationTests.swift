@@ -94,20 +94,20 @@ class OperationTests: XCTestCase {
         XCTAssertEqual(history.blocks[history.blocks.count - 1].name, "Измененное имя")
     }
     
-    func testValueIsDouble(){
-        // проверка на соответствие значения типу Double
-        
-        let result = expression1().calculate()
-        assert((result as Any) is Double)
+    func testValue(){
+        // проверка значения
+
+        let simpleExpression: Expression = .value(5)
+        XCTAssertEqual(simpleExpression.calculate(), 5)
     }
     
     func testDivisionByZero(){
         // деление на 0
         
-        let result = expression1().calculate() / 0
-        if(result.isInfinite){
+        let simpleExpression: Expression = .binary(.division, .value(3), .value(0))
+        if(simpleExpression.calculate().isInfinite){
             print("Результат равен бесконечности")
-            XCTAssertEqual(result, Double.infinity)
+            XCTAssertEqual(simpleExpression.calculate(), Double.infinity)
         }
     }
     
