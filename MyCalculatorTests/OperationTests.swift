@@ -29,6 +29,26 @@ class OperationTests: XCTestCase {
         XCTAssertEqual(result, 3.0, "Результат должен быть равен 3")
     }
     
+    func testMinusExpression() {
+        let simpleExpression: Expression = .binary(.minus, .value(5), .value(2))
+        XCTAssertEqual(simpleExpression.calculate(), 3.0, "Результат должен быть равен 3")
+    }
+    
+    func testMultiplyExpression() {
+        let simpleExpression: Expression = .binary(.multiply, .value(2), .value(2))
+        XCTAssertEqual(simpleExpression.calculate(), 4.0, "Результат должен быть равен 4")
+    }
+    
+    func testDivisonExpression() {
+        let simpleExpression: Expression = .binary(.division, .value(32), .value(8))
+        XCTAssertEqual(simpleExpression.calculate(), 4.0, "Результат должен быть равен 4")
+    }
+    
+    func testUnaryExpression() {
+        let simpleExpression: Expression = .unary(.unaryMinus, .value(8))
+        XCTAssertEqual(simpleExpression.calculate(), -8, "Результат должен быть равен -8")
+    }
+    
     func testHardExpression() {
         let result = expression2().calculate()
         print("\(result)")
@@ -118,7 +138,7 @@ class OperationTests: XCTestCase {
         //сложение двух Double.min
         
         let simpleExpression: Expression = .binary(.add, .value(Double.leastNormalMagnitude), .value(Double.leastNormalMagnitude))
-        XCTAssertTrue(simpleExpression.calculate().isInfinite, "Результат должен быть равен бесконечности")
+        XCTAssertFalse(simpleExpression.calculate().isInfinite, "Результат не должен быть равен бесконечности")
     }
 }
 
