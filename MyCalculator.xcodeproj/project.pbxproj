@@ -11,7 +11,7 @@
 		E127B8FC2146958F00E48F16 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8FB2146958F00E48F16 /* Errors.swift */; };
 		E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182669C21471DF400F284B8 /* ExpressionBox.swift */; };
 		E1F6111021385695000C06CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6110F21385695000C06CA /* AppDelegate.swift */; };
-		E1F6111221385695000C06CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111121385695000C06CA /* ViewController.swift */; };
+		E1F6111221385695000C06CA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111121385695000C06CA /* MainController.swift */; };
 		E1F6111521385695000C06CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111321385695000C06CA /* Main.storyboard */; };
 		E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111621385695000C06CA /* MyCalculator.xcdatamodeld */; };
 		E1F6111A21385698000C06CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111921385698000C06CA /* Assets.xcassets */; };
@@ -43,7 +43,7 @@
 		E182669C21471DF400F284B8 /* ExpressionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBox.swift; sourceTree = "<group>"; };
 		E1F6110C21385695000C06CA /* MyCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F6110F21385695000C06CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1F6111121385695000C06CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E1F6111121385695000C06CA /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		E1F6111421385695000C06CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1F6111721385695000C06CA /* MyCalculator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyCalculator.xcdatamodel; sourceTree = "<group>"; };
 		E1F6111921385698000C06CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				E1F6110F21385695000C06CA /* AppDelegate.swift */,
-				E1F6111121385695000C06CA /* ViewController.swift */,
+				E1F6111121385695000C06CA /* MainController.swift */,
 				E1F6111321385695000C06CA /* Main.storyboard */,
 				E1F6111921385698000C06CA /* Assets.xcassets */,
 				E1F6111B21385698000C06CA /* LaunchScreen.storyboard */,
@@ -268,7 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F6111221385695000C06CA /* ViewController.swift in Sources */,
+				E1F6111221385695000C06CA /* MainController.swift in Sources */,
 				E127B8FA214449AB00E48F16 /* Expression.swift in Sources */,
 				E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */,
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
