@@ -24,6 +24,7 @@ class MainController: UIViewController, KeyboardViewDelegate {
     func KeyboardViewGoDown(keyboardView: UIView) {
     }
     
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     var keyboardViewController:KeyboardView!
     
@@ -36,7 +37,7 @@ class MainController: UIViewController, KeyboardViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView)
+        keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView, topConstraint: topConstraint)
         keyboardViewController.goUp()
     }
 }

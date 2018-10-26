@@ -26,14 +26,16 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     private var contentViewPanGr:UIPanGestureRecognizer!
     private var keyboardView:UIView!
     private var superView:UIView!
+    private var topConstraint:NSLayoutConstraint!
     
     weak var delegate: KeyboardViewDelegate?
     
 
-    init(panGestureRecognizer: UIPanGestureRecognizer, delegate:KeyboardViewDelegate? = nil, superView: UIView, keyboardView: UIView) {
+    init(panGestureRecognizer: UIPanGestureRecognizer, delegate:KeyboardViewDelegate? = nil, superView: UIView, keyboardView: UIView, topConstraint: NSLayoutConstraint) {
         super.init()
         self.keyboardView = keyboardView
         self.superView = superView
+        self.topConstraint = topConstraint
         self.delegate = delegate
         let frame = self.keyboardView.convert(self.keyboardView.frame, to: superView)
         keyboardPositionOpened = superView.frame.size.height - frame.size.height
@@ -54,11 +56,19 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     @objc func move(panGr:UIPanGestureRecognizer){
         let translation = panGr.translation(in: keyboardView)
         let velocity = panGr.velocity(in: keyboardView)
-        if (panGr.state == UIGestureRecognizerState.changed){
+        if (panGr.state == UIGestureRecognizerState.began){
+
+        }
+        else if (panGr.state == UIGestureRecognizerState.changed){
             if let view = panGr.view {
+                
                 absPoint = abs(translation.y)
                 view.center = CGPoint(x: view.center.x,
                                       y: view.center.y + translation.y)
+                //// Подключаем constraint
+                let newPosition = topConstraint.constant + translation.y
+                topConstraint.constant = min(keyboardPositionOpened, newPosition)
+                //
                     panGr.setTranslation(CGPoint.zero, in: keyboardView)
             }
         }else if (panGr.state == UIGestureRecognizerState.ended){
