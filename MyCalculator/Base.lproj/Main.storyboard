@@ -226,13 +226,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="historyTable" destination="XJg-15-N8h" id="dhg-z6-RJ4"/>
+                        <outlet property="keyboardView" destination="MfL-D7-lBb" id="3b5-wh-l9z"/>
+                        <outlet property="panGestureRecognizer" destination="RLc-z4-cmI" id="GA5-1W-o3z"/>
+                        <outlet property="showResult" destination="TKD-CP-aG7" id="Xfd-S2-oMh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="RLc-z4-cmI">
-                    <connections>
-                        <action selector="handlePanWithRecognizer:" destination="BYZ-38-t0r" id="e9Q-un-6Bc"/>
-                    </connections>
-                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="RLc-z4-cmI"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="106.59670164917542"/>
         </scene>

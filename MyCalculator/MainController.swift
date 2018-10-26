@@ -8,28 +8,36 @@
 
 import UIKit
 
-class MainController: UIViewController {
+//protocol KeyboardViewDelegate:class{
+//    func KeyboardViewGoUp(keyboardView:UIView)
+//    func KeyboardViewGoDown(keyboardView:UIView)
+//}
+//
+//enum KeyboardStatus{
+//    case opened, closed, moved
+//}
 
+class MainController: UIViewController, KeyboardViewDelegate {
+    func KeyboardViewGoUp(keyboardView: UIView) {
+    }
+    
+    func KeyboardViewGoDown(keyboardView: UIView) {
+    }
+    
+    
+    var keyboardViewController:KeyboardView!
+    
+    @IBOutlet weak var keyboardView: UIView!
+    @IBOutlet weak var showResult: UILabel!
+    @IBOutlet weak var historyTable: UITableView!
+
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView)
+        keyboardViewController.goUp()
     }
-    
-    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
-        if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x,
-                                  y:view.center.y + translation.y)
-        }
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
