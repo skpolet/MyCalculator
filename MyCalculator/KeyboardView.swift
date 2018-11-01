@@ -23,10 +23,10 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     private var keyboardPositionOpened: CGFloat = 0.0
     private var keyboardPositionCenter: CGFloat = 0.0
     private var keyboardPositionClosed: CGFloat = 0.0
-    private var contentViewPanGr:UIPanGestureRecognizer!
-    private var keyboardView:UIView!
-    private var superView:UIView!
-    private var topConstraint:NSLayoutConstraint!
+    private var contentViewPanGr: UIPanGestureRecognizer!
+    private var keyboardView: UIView!
+    private var superView: UIView!
+    private var topConstraint: NSLayoutConstraint!
     
     weak var delegate: KeyboardViewDelegate?
     
@@ -47,46 +47,66 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
         keyboardView.addGestureRecognizer(contentViewPanGr)
     }
     
-    func insideDraggableArea(point : CGPoint) -> Bool {
-        return point.y >= keyboardPositionOpened
-    }
-    
-    private var draggedOriginalFrame:CGFloat!
-    private var absPoint:CGFloat!
-    @objc func move(panGr:UIPanGestureRecognizer){
-        let translation = panGr.translation(in: keyboardView)
-        let velocity = panGr.velocity(in: keyboardView)
-        if (panGr.state == UIGestureRecognizerState.began){
+    private var beganTochedPoint: CGFloat = 0
+    private var beganConstraint: CGFloat = 0
+    private var absPoint: CGFloat!
+    @objc func move(panGesture:UIPanGestureRecognizer){
+        let translation = panGesture.translation(in: keyboardView)
+        let velocity = panGesture.velocity(in: keyboardView)
+        let location = panGesture.location(in: keyboardView)
 
-        }
-        else if (panGr.state == UIGestureRecognizerState.changed){
-            if let view = panGr.view {
-                
-                absPoint = abs(translation.y)
+        if let view = panGesture.view {
+        switch panGesture.state {
+        case .began:
+            beganTochedPoint = location.y
+            beganConstraint = topConstraint.constant
+            break
+        case .changed:
+            absPoint = abs(translation.y)
                 view.center = CGPoint(x: view.center.x,
-                                      y: view.center.y + translation.y)
-                //// Подключаем constraint
-                let newPosition = topConstraint.constant + translation.y
-                topConstraint.constant = min(keyboardPositionOpened, newPosition)
-                //
-                    panGr.setTranslation(CGPoint.zero, in: keyboardView)
-            }
-        }else if (panGr.state == UIGestureRecognizerState.ended){
+                                      y: beganConstraint + location.y - beganTochedPoint)
+
+            // Подключаем constraint
+            let newPosition = topConstraint.constant + translation.y
+            topConstraint.constant = min(keyboardPositionOpened, newPosition)
+            panGesture.setTranslation(CGPoint.zero, in: keyboardView)
+            break
+        case .possible:
+            break
+        case .ended:
             if keyboardPositionOpened <= keyboardView.frame.origin.y{
                 if self.status == .closed && absPoint > 50 && velocity.y < keyboardPositionOpened{
-                        self.goUp()
+                    self.goUp()
                 }else if self.status == .opened && absPoint > 50 && velocity.y > keyboardPositionOpened{
-                        self.goDown()
+                    self.goDown()
                 }
                 else if keyboardView.frame.origin.y < keyboardPositionCenter{
                     self.goUp()
                 }
                 else if keyboardView.frame.origin.y > keyboardPositionCenter{
-                        self.goDown()
+                    self.goDown()
                 }
             }else{
                 self.goUp()
             }
+            beganTochedPoint = view.center.y
+            break
+        case .cancelled:
+            break
+        case .failed:
+            break
+        }
+        }
+        if (panGesture.state == UIGestureRecognizerState.began){
+
+        }
+        else if (panGesture.state == UIGestureRecognizerState.changed){
+            
+                
+
+         //   }
+        }else if (panGesture.state == UIGestureRecognizerState.ended){
+
         }
     }
 
