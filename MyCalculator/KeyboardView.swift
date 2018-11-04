@@ -17,6 +17,9 @@ enum KeyboardStatus{
     case opened, closed, moved
 }
 
+// Buttons
+
+
 class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     var status:KeyboardStatus = .opened
     
@@ -53,27 +56,20 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     @objc func move(panGesture:UIPanGestureRecognizer){
         let translation = panGesture.translation(in: keyboardView)
         let velocity = panGesture.velocity(in: keyboardView)
-        let location = panGesture.location(in: keyboardView)
+        //let location = panGesture.location(in: keyboardView)
 
-        if let view = panGesture.view {
         switch panGesture.state {
         case .began:
-            beganTochedPoint = location.y
             beganConstraint = topConstraint.constant
             break
         case .changed:
-            absPoint = abs(translation.y)
-                view.center = CGPoint(x: view.center.x,
-                                      y: beganConstraint + location.y - beganTochedPoint)
 
-            // Подключаем constraint
-            let newPosition = topConstraint.constant + translation.y
-            topConstraint.constant = min(keyboardPositionOpened, newPosition)
-            panGesture.setTranslation(CGPoint.zero, in: keyboardView)
+            topConstraint.constant = beganConstraint + translation.y
             break
         case .possible:
             break
         case .ended:
+            absPoint = abs(translation.y)
             if keyboardPositionOpened <= keyboardView.frame.origin.y{
                 if self.status == .closed && absPoint > 50 && velocity.y < keyboardPositionOpened{
                     self.goUp()
@@ -89,31 +85,18 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
             }else{
                 self.goUp()
             }
-            beganTochedPoint = view.center.y
             break
         case .cancelled:
             break
         case .failed:
             break
         }
-        }
-        if (panGesture.state == UIGestureRecognizerState.began){
-
-        }
-        else if (panGesture.state == UIGestureRecognizerState.changed){
-            
-                
-
-         //   }
-        }else if (panGesture.state == UIGestureRecognizerState.ended){
-
-        }
     }
 
     func goUp(){
         self.status = .moved
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { () -> Void in
-            self.keyboardView.frame.origin = CGPoint(x: self.keyboardView.frame.origin.x, y: self.keyboardPositionOpened)
+            self.topConstraint.constant = self.keyboardPositionOpened
         }) { (bool:Bool) -> Void in
             self.status = .opened
             self.delegate?.KeyboardViewGoUp(keyboardView: self.keyboardView)
@@ -123,7 +106,7 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     func goDown(){
         self.status = .moved
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { () -> Void in
-            self.keyboardView.frame.origin = CGPoint(x: self.keyboardView.frame.origin.x, y: self.keyboardPositionClosed)
+            self.topConstraint.constant = self.keyboardPositionClosed
         }) { (bool:Bool) -> Void in
             self.status = .closed
             self.delegate?.KeyboardViewGoDown(keyboardView: self.keyboardView)
