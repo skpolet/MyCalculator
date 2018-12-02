@@ -14,11 +14,14 @@ indirect enum Expression : Equatable {
 
      enum UnaryOperation {
         case unaryMinus
+        case clearValue
         
         func calculate(_ expression: Expression) -> ValueType {
             switch self {
             case .unaryMinus:
                 return -1 * expression.calculate()
+            case .clearValue:
+                return 0 * expression.calculate()
             }
         }
     }
@@ -28,7 +31,7 @@ indirect enum Expression : Equatable {
         case add
         case minus
         case multiply
-        case division
+        case divide
         
         func calculate(_ left: Expression, _ right: Expression) -> ValueType {
             switch self {
@@ -38,7 +41,7 @@ indirect enum Expression : Equatable {
                 return left.calculate() - right.calculate()
             case .multiply:
                 return left.calculate() * right.calculate()
-            case .division:
+            case .divide:
                 return left.calculate() / right.calculate()
             }
         }

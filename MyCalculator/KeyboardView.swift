@@ -95,8 +95,10 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
 
     func goUp(){
         self.status = .moved
+        self.topConstraint.constant = self.keyboardPositionOpened
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { () -> Void in
-            self.topConstraint.constant = self.keyboardPositionOpened
+            self.keyboardView.layoutIfNeeded()
+            
         }) { (bool:Bool) -> Void in
             self.status = .opened
             self.delegate?.KeyboardViewGoUp(keyboardView: self.keyboardView)
@@ -105,8 +107,10 @@ class KeyboardView: NSObject,UIGestureRecognizerDelegate {
     
     func goDown(){
         self.status = .moved
+        self.topConstraint.constant = self.keyboardPositionClosed
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { () -> Void in
-            self.topConstraint.constant = self.keyboardPositionClosed
+            self.keyboardView.layoutIfNeeded()
+            
         }) { (bool:Bool) -> Void in
             self.status = .closed
             self.delegate?.KeyboardViewGoDown(keyboardView: self.keyboardView)

@@ -40,7 +40,7 @@ class OperationTests: XCTestCase {
     }
     
     func testDivisonExpression() {
-        let simpleExpression: Expression = .binary(.division, .value(32), .value(8))
+        let simpleExpression: Expression = .binary(.divide, .value(32), .value(8))
         XCTAssertEqual(simpleExpression.calculate(), 4.0, "Результат должен быть равен 4")
     }
     
@@ -116,7 +116,7 @@ class OperationTests: XCTestCase {
     func testDivisionByZero(){
         // деление на 0
         
-        let simpleExpression: Expression = .binary(.division, .value(3), .value(0))
+        let simpleExpression: Expression = .binary(.divide, .value(3), .value(0))
         XCTAssertTrue(simpleExpression.calculate().isInfinite, "Результат должен быть равен бесконечности")
     }
     
