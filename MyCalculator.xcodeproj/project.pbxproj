@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DBA1A06C0B5861EA5B8EA37 /* SimpleCalculatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1E13A15BE00D7A803AE9 /* SimpleCalculatorTest.swift */; };
 		E1124C34219252CB0015E038 /* ExpressionActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1124C33219252CB0015E038 /* ExpressionActions.swift */; };
 		E11670B721D8C5F0006BCA5B /* ExpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */; };
 		E11670B821D8C5F0006BCA5B /* ExpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA1E13A15BE00D7A803AE9 /* SimpleCalculatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCalculatorTest.swift; sourceTree = "<group>"; };
 		E1124C33219252CB0015E038 /* ExpressionActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionActions.swift; sourceTree = "<group>"; };
 		E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionCell.swift; sourceTree = "<group>"; };
 		E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpressionCell.xib; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				E182669C21471DF400F284B8 /* ExpressionBox.swift */,
 				E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */,
 				E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */,
+				2DBA1E13A15BE00D7A803AE9 /* SimpleCalculatorTest.swift */,
 			);
 			path = MyCalculator;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */,
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
 				E1F6111021385695000C06CA /* AppDelegate.swift in Sources */,
+				2DBA1A06C0B5861EA5B8EA37 /* SimpleCalculatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

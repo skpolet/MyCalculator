@@ -10,81 +10,134 @@ import Foundation
 
 typealias ValueType = Double
 
-indirect enum Expression : Equatable {
+protocol Calculatable {
+    var result: ValueType { get }
+}
 
-     enum UnaryOperation {
-        case unaryMinus
+protocol RepresentableAsString {
+    var asString: String { get }
+}
+
+indirect enum Expression : Calculatable, RepresentableAsString {
+    enum UnaryOperation: RepresentableAsString {
+        case unaryMinus(Expression)
+
+        var result: ValueType {
+            switch self {
+                case .unaryMinus(let expression):
+                    return -1 * expression.result
+            }
+        }
+
+        var asString: String {
+            switch self {
+                case .unaryMinus(let expression):
+                    return "-\(expression.asString)"
+            }
+        }
+    }
+
+    enum SimpleOperation: Calculatable, RepresentableAsString {
         case clearValue
-        
-        func calculate(_ expression: Expression) -> ValueType {
+
+        var result: ValueType {
             switch self {
-            case .unaryMinus:
-                return -1 * expression.calculate()
             case .clearValue:
-                return 0 * expression.calculate()
+                return 0
             }
         }
-    }
-    
-    indirect enum BinaryOperation {
-        
-        case add
-        case minus
-        case multiply
-        case divide
-        
-        func calculate(_ left: Expression, _ right: Expression) -> ValueType {
+
+        var asString: String {
             switch self {
-            case .add:
-                return left.calculate() + right.calculate()
-            case .minus:
-                return left.calculate() - right.calculate()
-            case .multiply:
-                return left.calculate() * right.calculate()
-            case .divide:
-                return left.calculate() / right.calculate()
-            }
-        }
-        
-        func returnStringExpression(_ left: Expression, _ right: Expression) -> String {
-            
-            let actions = ExpressionActions()
-            switch self {
-            case .add:
-                return actions.resultNumPressed(value: left.calculate()) + "+" + actions.resultNumPressed(value: right.calculate())
-            case .minus:
-                return actions.resultNumPressed(value: left.calculate()) + "-" + actions.resultNumPressed(value: right.calculate())
-            case .multiply:
-                return actions.resultNumPressed(value: left.calculate()) + "*" + actions.resultNumPressed(value: right.calculate())
-            case .divide:
-                return actions.resultNumPressed(value: left.calculate()) + "/" + actions.resultNumPressed(value: right.calculate())
+            case .clearValue:
+                return "0"
             }
         }
     }
 
+    enum BinaryOperation: Calculatable, RepresentableAsString {
+        case add(Expression, Expression)
+        case subtract(Expression, Expression)
+        case multiply(Expression, Expression)
+        case divide(Expression, Expression)
+
+        var result: ValueType {
+            switch self {
+            case .add(let left, let right):
+                return left.result + right.result
+            case .subtract(let left, let right):
+                return left.result - right.result
+            case .multiply(let left, let right):
+                return left.result * right.result
+            case .divide(let left, let right):
+                return left.result / right.result
+            }
+        }
+
+        var asString: String {
+            switch self {
+            case .add(let left, let right):
+                return "\(left.asString) + \(right.asString)"
+            case .subtract(let left, let right):
+                return "\(left.asString) - \(right.asString)"
+            case .multiply(let left, let right):
+                return "\(left.asString) * \(right.asString)"
+            case .divide(let left, let right):
+                return "\(left.asString) / \(right.asString)"
+            }
+        }
+
+        func replacedRight(_ expression: Expression) -> BinaryOperation {
+            switch self {
+            case .add(let left, _):
+                return .add(left, expression)
+            case .subtract(let left, _):
+                return .subtract(left, expression)
+            case .multiply(let left, _):
+                return .multiply(left, expression)
+            case .divide(let left, _):
+                return .divide(left, expression)
+            }
+        }
+    }
+
+    case none
     case value(ValueType)
-    case unary(UnaryOperation, Expression)
-    case binary(BinaryOperation, Expression, Expression)
-    
-    func calculate() -> ValueType {
+    case unary(UnaryOperation)
+    case binary(BinaryOperation)
+
+    var result: ValueType {
         switch self {
+        case .none:
+            return 0
         case .value(let value):
             return value
-        case .unary(let operation, let value):
-            return operation.calculate(value)
-        case .binary(let operation, let left, let right):
-            return operation.calculate(left,right)
+        case .unary(let operation):
+            return operation.result
+        case .binary(let operation):
+            return operation.result
         }
     }
-    
-    func getExpressionString() ->String{
+
+    var asString: String {
         switch self {
+        case .none:
+            return "empty"
         case .value(let value):
             return String(value)
-        case .unary(let operation, let value):
-            return String(operation.calculate(value))
-        case .binary(let operation, let left, let right):
-            return operation.returnStringExpression(left, right)
+        case .unary(let operation):
+            return operation.asString
+        case .binary(let operation):
+            return "(\(operation.asString))"
+        }
+    }
+
+    var isSimpleValue: Bool {
+        switch self {
+        case .none, .value:
+            return true
+        default:
+            return false
         }
     }
 }
