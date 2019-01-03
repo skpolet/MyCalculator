@@ -27,20 +27,30 @@ enum binaryOperation {
 
 struct IncomingValues {
     
-    var oldValue: Double = 0.0
-    var newValue: Double = 0.0
+    var leftValue: Double = 0.0
+    var rightValue: Double = 0.0
     var decimalPoint: Bool = false
     var isUnaryValue: Bool = false
+    var isCanBeChangeRight: Bool = false
+    var isAfterResult: Bool = false
+    var isCanBeClear: Bool = false
     
     mutating func addValue(value: Double){
-        oldValue = newValue
-        newValue = value
+        leftValue = value
+        rightValue = 0
+    }
+    mutating func updateRight(value: Double){
+        rightValue = value
     }
     
-    mutating func updateResult(value: Double){
-        newValue = value
+    mutating func updateLeft(value: Double){
+        leftValue = value
     }
     
+    mutating func getLeftAndRight() ->(Double, Double){
+    return (leftValue,rightValue)
+    }
+
     mutating func changeDecimalPoint(){
         if decimalPoint == true {
             decimalPoint = false
@@ -50,8 +60,8 @@ struct IncomingValues {
     }
     
     mutating func clearValue(){
-        oldValue = 0.0
-        newValue = 0.0
+        leftValue = 0.0
+        rightValue = 0.0
         decimalPoint = false
     }
 }
@@ -64,10 +74,11 @@ class ExpressionActions: NSObject {
     var runningNumber: Double = 0.0
     var lastBinaryOperation: binaryOperation!
     var incomingValues: IncomingValues!
+    var returnString: String = "0"
     
     init(delegate:ExpressionActionsDelegate? = nil){
         super.init()
-        incomingValues = IncomingValues()
+        incomingValues = initIncomingValues()
         lastBinaryOperation = .missing
         self.delegate = delegate
     }
@@ -82,42 +93,102 @@ class ExpressionActions: NSObject {
     
     func clear(isClearAll: Bool){
         if(!isClearAll){
+            incomingValues.isCanBeClear = false
             countNumPressed = 0
             runningNumber = 0.0
             power = 1
+            returnString = "0"
+            if(lastBinaryOperation == .clear){
+            lastBinaryOperation = .missing
+            }
         }
     }
     
+    func initIncomingValues() ->IncomingValues{
+        incomingValues = IncomingValues()
+        return incomingValues
+    }
+    
+    func countNumbersAfterPoint(value: String) ->Int{
+        if(value == "0.0"){
+            return 0
+        }
+        else{
+            let separatedString = value.components(separatedBy: ".")[1]
+            print(separatedString.count)
+            return separatedString.count
+        }
+
+    }
+    
+    func convertToUnary(){
+        delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: convertUnaryValue(value: runningNumber)))
+    }
+    
+    func convertToDecimal(){
+        if(incomingValues.decimalPoint == false && isInt(value: runningNumber)){
+        delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: runningNumber) + ".")
+        }
+    }
+    
+    func isUnaryMinus(value: String) ->Bool{
+        let stringResult = value.contains("-")
+        return stringResult
+    }
+    
     func numPressed(num: Int, isDecimal: Bool, isUnaryMinus: Bool) -> Double {
+        returnString = String(runningNumber)
         if(countNumPressed < 9){
             if(!isInt(value: runningNumber) || isDecimal){
-                if(!isUnaryMinusValue(value: runningNumber)){
+                if(incomingValues.isAfterResult){
+                    power = countNumbersAfterPoint(value: returnString)
+                    incomingValues.isAfterResult = false
+                }
+                if(self.isUnaryMinus(value: returnString) == false){
                     runningNumber = runningNumber + Double(num) / pow( 10, Double(power))
                     power = power + 1
                 }else{
                     runningNumber = runningNumber - Double(num) / pow( 10, Double(power))
                     power = power + 1
                 }
+                print("power :", power)
             }
             else{
-                if(isUnaryMinusValue(value: runningNumber)){
+                if(incomingValues.isUnaryValue == false){
                     runningNumber = runningNumber * 10 + Double(num)
                     countNumPressed = countNumPressed + 1
                 }else{
-                    runningNumber = runningNumber * 10 - Double(num)
-                    countNumPressed = countNumPressed + 1
+                    if(runningNumber > 0){
+                        runningNumber = convertUnaryValue(value: runningNumber) * 10 - Double(num)
+                        countNumPressed = countNumPressed + 1
+                    }else{
+                        runningNumber = runningNumber * 10 - Double(num)
+                        countNumPressed = countNumPressed + 1
+                    }
+                    
                 }
             }
         }
-        if(isUnaryMinus == true){
-            incomingValues.updateResult(value: convertUnaryValue(value: runningNumber))
-            delegate?.ResultToReturn(binaryOperation: .missing, value: resultNumPressed(value: convertUnaryValue(value: runningNumber)))
+        if(incomingValues.isUnaryValue == true){
+            if(runningNumber > 0){
+                delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: convertUnaryValue(value: runningNumber)))
+            }else{
+                delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: runningNumber))
+            }
         }
         else{
-            incomingValues.updateResult(value: runningNumber)
-            delegate?.ResultToReturn(binaryOperation: .missing, value: resultNumPressed(value: runningNumber))
+                delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: runningNumber))
+            }
+        if (incomingValues.isCanBeChangeRight == false){
+            incomingValues.updateLeft(value: runningNumber)
+        }else{
+            incomingValues.updateRight(value: runningNumber)
         }
         return runningNumber
+    }
+    
+    func doubleToString(value: Double) ->String{
+        return String(value)
     }
     
     func resultNumPressed(value: Double) ->String{
@@ -128,11 +199,12 @@ class ExpressionActions: NSObject {
         }else{
             returnNum = String(value)
         }
+        //returnString = returnNum
         return returnNum
     }
     
     func isUnaryMinusValue(value: Double) -> Bool{
-        if((value + value) == 0){
+        if(value < 0){
             return true
         }else{
             return false
@@ -163,80 +235,57 @@ class ExpressionActions: NSObject {
         return historyBlock
     }
     
-    func resultExpression(binaryOperation: binaryOperation, value1: Double, value2: Double) -> String{
-        var showResult = ""
+    func resultToExpression(){
         var expression: Expression
-        switch binaryOperation {
-        case .divide:
-            expression = .binary(.divide, .value(value1), .value(value2))
-            lastBinaryOperation = .divide
-            if value2 != 0.0{
-                delegate?.ResultToReturn(binaryOperation: .divide, value: resultNumPressed(value: expression.calculate()))
-                delegate?.DoubleToReturn(binaryOperation: .divide, value: expression.calculate())
-                return resultNumPressed(value: expression.calculate())
-            }else{
-                delegate?.ResultToReturn(binaryOperation: .divide, value: resultNumPressed(value: value1))
-                delegate?.DoubleToReturn(binaryOperation: .divide, value: expression.calculate())
-                return resultNumPressed(value: value1)
-            }
-        case .multiply:
-            expression = .binary(.multiply, .value(value1), .value(value2))
-            lastBinaryOperation = .multiply
-            if value2 != 0.0{
-                delegate?.ResultToReturn(binaryOperation: .multiply, value: resultNumPressed(value: expression.calculate()))
-                delegate?.DoubleToReturn(binaryOperation: .multiply, value: expression.calculate())
-                return resultNumPressed(value: expression.calculate())
-            }else{
-                delegate?.ResultToReturn(binaryOperation: .multiply, value: resultNumPressed(value: value1))
-                delegate?.DoubleToReturn(binaryOperation: .multiply, value: expression.calculate())
-                return resultNumPressed(value: value1)
-            }
-        case .add:
-            expression = .binary(.add, .value(value1), .value(value2))
-            lastBinaryOperation = .add
-            if value2 != 0.0{
-                delegate?.ResultToReturn(binaryOperation: .add, value: resultNumPressed(value: expression.calculate()))
-                delegate?.DoubleToReturn(binaryOperation: .add, value: expression.calculate())
-                return resultNumPressed(value: expression.calculate())
-            }else{
-                delegate?.ResultToReturn(binaryOperation: .add, value: resultNumPressed(value: value1))
-                delegate?.DoubleToReturn(binaryOperation: .add, value: expression.calculate())
-                return resultNumPressed(value: value1)
-            }
-        case .minus:
-            expression = .binary(.minus, .value(value1), .value(value2))
-            lastBinaryOperation = .minus
-            if value2 != 0.0{
-                delegate?.ResultToReturn(binaryOperation: .minus, value: resultNumPressed(value: expression.calculate()))
-                delegate?.DoubleToReturn(binaryOperation: .minus, value: expression.calculate())
-                return resultNumPressed(value: expression.calculate())
-            }else{
-                delegate?.ResultToReturn(binaryOperation: .minus, value: resultNumPressed(value: value1))
-                delegate?.DoubleToReturn(binaryOperation: .minus, value: expression.calculate())
-                return resultNumPressed(value: value1)
-            }
-        case .missing:
-            if value2 != 0.0{
-                delegate?.ResultToReturn(binaryOperation: .missing, value: resultNumPressed(value: value2))
-                return resultNumPressed(value: value2)
-            }else{
-                delegate?.ResultToReturn(binaryOperation: .missing, value: resultNumPressed(value: value1))
-                return resultNumPressed(value: value1)
-            }
-        case .clear:
+        switch lastBinaryOperation {
+        case .divide?:
+            expression = .binary(.divide, .value(incomingValues.leftValue), .value(incomingValues.rightValue))
+            delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: expression.calculate()))
+            delegate?.DoubleToReturn(binaryOperation: lastBinaryOperation, value: expression.calculate())
+            incomingValues.updateLeft(value: expression.calculate())
+            incomingValues.updateRight(value: 0.0)
+            break
+        case .add?:
+            expression = .binary(.add, .value(incomingValues.leftValue), .value(incomingValues.rightValue))
+            delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: expression.calculate()))
+            delegate?.DoubleToReturn(binaryOperation: lastBinaryOperation, value: expression.calculate())
+            incomingValues.updateLeft(value: expression.calculate())
+            incomingValues.updateRight(value: 0.0)
+            break
+        case .minus?:
+            expression = .binary(.minus, .value(incomingValues.leftValue), .value(incomingValues.rightValue))
+            delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: expression.calculate()))
+            delegate?.DoubleToReturn(binaryOperation: lastBinaryOperation, value: expression.calculate())
+            incomingValues.updateLeft(value: expression.calculate())
+            incomingValues.updateRight(value: 0.0)
+            break
+        case .multiply?:
+            expression = .binary(.multiply, .value(incomingValues.leftValue), .value(incomingValues.rightValue))
+            delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: expression.calculate()))
+            delegate?.DoubleToReturn(binaryOperation: lastBinaryOperation, value: expression.calculate())
+            incomingValues.updateLeft(value: expression.calculate())
+            incomingValues.updateRight(value: 0.0)
+            break
+        case .none:
+            break
+        case .some(.missing):
+            break
+        case .some(.clear):
             clear(isClearAll: false)
-            delegate?.ResultToReturn(binaryOperation: .clear, value: resultNumPressed(value: 0))
-            return resultNumPressed(value: 0.0)
-        case .clearAll:
+            incomingValues.updateLeft(value: 0.0)
+            incomingValues.updateRight(value: 0.0)
+            delegate?.ResultToReturn(binaryOperation: lastBinaryOperation, value: resultNumPressed(value: 0))
             break
-        case .newBox:
+        case .some(.clearAll):
             break
-        case .deleteFromBox:
+        case .some(.newBox):
+            break
+        case .some(.deleteFromBox):
             break
         }
-        return showResult
     }
-}
+    
+
 
 class CurrentExpressionAndBox {
     var currentExpression: Expression?
@@ -268,3 +317,4 @@ class CurrentExpressionAndBox {
 //метод проверки числа на целое +
 
 //метод добавления в бокс
+}

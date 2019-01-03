@@ -45,6 +45,21 @@ indirect enum Expression : Equatable {
                 return left.calculate() / right.calculate()
             }
         }
+        
+        func returnStringExpression(_ left: Expression, _ right: Expression) -> String {
+            
+            let actions = ExpressionActions()
+            switch self {
+            case .add:
+                return actions.resultNumPressed(value: left.calculate()) + "+" + actions.resultNumPressed(value: right.calculate())
+            case .minus:
+                return actions.resultNumPressed(value: left.calculate()) + "-" + actions.resultNumPressed(value: right.calculate())
+            case .multiply:
+                return actions.resultNumPressed(value: left.calculate()) + "*" + actions.resultNumPressed(value: right.calculate())
+            case .divide:
+                return actions.resultNumPressed(value: left.calculate()) + "/" + actions.resultNumPressed(value: right.calculate())
+            }
+        }
     }
 
     case value(ValueType)
@@ -59,6 +74,17 @@ indirect enum Expression : Equatable {
             return operation.calculate(value)
         case .binary(let operation, let left, let right):
             return operation.calculate(left,right)
+        }
+    }
+    
+    func getExpressionString() ->String{
+        switch self {
+        case .value(let value):
+            return String(value)
+        case .unary(let operation, let value):
+            return String(operation.calculate(value))
+        case .binary(let operation, let left, let right):
+            return operation.returnStringExpression(left, right)
         }
     }
 }

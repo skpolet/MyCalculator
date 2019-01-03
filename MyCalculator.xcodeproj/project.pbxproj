@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E1124C34219252CB0015E038 /* ExpressionActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1124C33219252CB0015E038 /* ExpressionActions.swift */; };
+		E11670B721D8C5F0006BCA5B /* ExpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */; };
+		E11670B821D8C5F0006BCA5B /* ExpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */; };
 		E11BDA2A2180A27900469AFE /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BDA292180A27800469AFE /* KeyboardView.swift */; };
 		E127B8FA214449AB00E48F16 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8F9214449AB00E48F16 /* Expression.swift */; };
-		E127B8FC2146958F00E48F16 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8FB2146958F00E48F16 /* Errors.swift */; };
 		E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182669C21471DF400F284B8 /* ExpressionBox.swift */; };
 		E1F6111021385695000C06CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6110F21385695000C06CA /* AppDelegate.swift */; };
 		E1F6111221385695000C06CA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111121385695000C06CA /* MainController.swift */; };
@@ -41,9 +42,10 @@
 
 /* Begin PBXFileReference section */
 		E1124C33219252CB0015E038 /* ExpressionActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionActions.swift; sourceTree = "<group>"; };
+		E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionCell.swift; sourceTree = "<group>"; };
+		E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpressionCell.xib; sourceTree = "<group>"; };
 		E11BDA292180A27800469AFE /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		E127B8F9214449AB00E48F16 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
-		E127B8FB2146958F00E48F16 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E182669C21471DF400F284B8 /* ExpressionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBox.swift; sourceTree = "<group>"; };
 		E1F6110C21385695000C06CA /* MyCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F6110F21385695000C06CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,7 +122,8 @@
 				E1F6111621385695000C06CA /* MyCalculator.xcdatamodeld */,
 				E127B8F9214449AB00E48F16 /* Expression.swift */,
 				E182669C21471DF400F284B8 /* ExpressionBox.swift */,
-				E127B8FB2146958F00E48F16 /* Errors.swift */,
+				E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */,
+				E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */,
 			);
 			path = MyCalculator;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				E1F6111D21385698000C06CA /* LaunchScreen.storyboard in Resources */,
 				E1F6111A21385698000C06CA /* Assets.xcassets in Resources */,
 				E1F6111521385695000C06CA /* Main.storyboard in Resources */,
+				E11670B821D8C5F0006BCA5B /* ExpressionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,12 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1F6111221385695000C06CA /* MainController.swift in Sources */,
+				E11670B721D8C5F0006BCA5B /* ExpressionCell.swift in Sources */,
 				E127B8FA214449AB00E48F16 /* Expression.swift in Sources */,
 				E1124C34219252CB0015E038 /* ExpressionActions.swift in Sources */,
 				E11BDA2A2180A27900469AFE /* KeyboardView.swift in Sources */,
 				E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */,
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
-				E127B8FC2146958F00E48F16 /* Errors.swift in Sources */,
 				E1F6111021385695000C06CA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

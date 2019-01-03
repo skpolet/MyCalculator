@@ -86,6 +86,7 @@ class OperationTests: XCTestCase {
         history.appendToLastBlock(expression2())
         history.deleteBlockAtIndex(index: history.blocks.count - 1)
         XCTAssertEqual(history.blocks.count, 1, "Результат должен быть равен 1")
+        print("history: ", block1.expressions[0].getExpressionString())
     }
     
     func testGetLastExpressionFromBlock(){
@@ -140,6 +141,27 @@ class OperationTests: XCTestCase {
         let simpleExpression: Expression = .binary(.add, .value(Double.leastNormalMagnitude), .value(Double.leastNormalMagnitude))
         XCTAssertFalse(simpleExpression.calculate().isInfinite, "Результат не должен быть равен бесконечности")
     }
+    
+//    func testNewExpression(){
+//        let newExpression = ExpressionHard()
+//        let twoExpression = ExpressionHard()
+//        twoExpression.addValue(value: 5.0)
+//        twoExpression.addOperation(operation: "+")
+//        twoExpression.addValue(value: 5.0)
+//        newExpression.addValue(value: 3.0)
+//        newExpression.addValue(value: 4.0)
+//        newExpression.addOperation(operation: "+")
+//        newExpression.addInderect(newString: twoExpression.resultString)
+//        print("chto eto:", newExpression.getResult())
+//    }
+    
+    func testNSExpression(){
+        let mathExpression = NSExpression(format: "4 + (5 - 2) * 3.2")
+        let mathValue = mathExpression.expressionValue(with: nil, context: nil) as? Double
+        print("result: ", mathValue!)
+
+    }
+    
 }
 
 

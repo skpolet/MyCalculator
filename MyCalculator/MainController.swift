@@ -9,21 +9,28 @@
 import UIKit
 
 
-class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsDelegate{
+class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsDelegate, UITableViewDelegate, UITableViewDataSource{
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = "Name"
+        
+        return cell
+    }
+    
     
     func DoubleToReturn(binaryOperation: binaryOperation, value: Double) {
-        runningNumber = value
-        
-        if(incomingValues.isUnaryValue == false){
-        incomingValues.updateResult(value: value)
-        }
+
     }
     
     func ResultToReturn(binaryOperation: binaryOperation, value: String) {
-        showResult.text = value
-        currentOperation = .missing
-        isUnaryMinus = false
-        
+        showResult.text = value   
     }
     
 
@@ -47,7 +54,6 @@ class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsD
     var runningNumber: Double = 0.0
     var countNumPressed: Int = 0
     
-    var incomingValues: IncomingValues!
     var actions: ExpressionActions! = nil
     var currentOperation: binaryOperation!
     var isUnaryMinus: Bool = false
@@ -55,96 +61,114 @@ class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsD
     override func viewDidLoad() {
         super.viewDidLoad()
         actions = ExpressionActions(delegate: self)
-        incomingValues = IncomingValues()
         actions.numPressed(num: 0,isDecimal: false, isUnaryMinus: false)
 
         keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView, topConstraint: topConstraint)
         keyboardViewController.goUp()
     }
+    
+    func turnOffStatusValue(){
+        actions.incomingValues.isUnaryValue = false
+        actions.incomingValues.decimalPoint = false
+    }
  
     @IBAction func actionButton(_ sender: Any) {
-        
         switch (sender as AnyObject).tag {
         case 101:
             print("clear")
-            print("test: ", actions.resultExpression(binaryOperation: binaryOperation.clear, value1: incomingValues.oldValue, value2: incomingValues.newValue))
-            incomingValues.clearValue()
-            runningNumber = 0
-            incomingValues.isUnaryValue = false
-           break
+            turnOffStatusValue()
+            actions.incomingValues.isCanBeChangeRight = false
+            actions.lastBinaryOperation = .clear
+            actions.resultToExpression()
+            break
         case 102:
+            print("percent")
             break
         case 103:
-            if(currentOperation == .divide){
-                print("divide")
-               incomingValues.addValue(value: runningNumber)
-                print("test: ", actions.resultExpression(binaryOperation: binaryOperation.divide, value1: incomingValues.oldValue, value2: incomingValues.newValue))
+            print("divide")
+            if(actions.lastBinaryOperation == .divide){
+                actions.incomingValues.isCanBeChangeRight = false
+                actions.incomingValues.isCanBeClear = false
             }else{
-                currentOperation = .divide
                 actions.lastBinaryOperation = .divide
-                incomingValues.addValue(value: runningNumber)
+                actions.incomingValues.isCanBeChangeRight = true
+                actions.incomingValues.isCanBeClear = true
+                turnOffStatusValue()
             }
-            
             break
         case 104:
-            if(currentOperation == .multiply){
-                print("multiply")
-                incomingValues.addValue(value: runningNumber)
-                print("test: ", actions.resultExpression(binaryOperation: binaryOperation.multiply, value1: incomingValues.oldValue, value2: incomingValues.newValue))
+            print("multiply")
+            if(actions.lastBinaryOperation == .multiply){
+                actions.incomingValues.isCanBeChangeRight = false
+                actions.incomingValues.isCanBeClear = false
             }else{
-                currentOperation = .multiply
                 actions.lastBinaryOperation = .multiply
-                incomingValues.addValue(value: runningNumber)
+                actions.incomingValues.isCanBeChangeRight = true
+                actions.incomingValues.isCanBeClear = true
+                turnOffStatusValue()
             }
-            
             break
         case 105:
-            if(currentOperation == .minus){
-                print("minus")
-                incomingValues.addValue(value: runningNumber)
-                print("test: ", actions.resultExpression(binaryOperation: binaryOperation.minus, value1: incomingValues.oldValue, value2: incomingValues.newValue))
+            print("minus")
+            if(actions.lastBinaryOperation == .minus){
+                actions.incomingValues.isCanBeChangeRight = false
+                actions.incomingValues.isCanBeClear = false
             }else{
-                currentOperation = .minus
                 actions.lastBinaryOperation = .minus
-                incomingValues.addValue(value: runningNumber)
+                actions.incomingValues.isCanBeChangeRight = true
+                actions.incomingValues.isCanBeClear = true
+                turnOffStatusValue()
             }
             break
         case 106:
-            if(currentOperation == .add){
-                print("plus")
-                incomingValues.addValue(value: runningNumber)
-                print("test: ", actions.resultExpression(binaryOperation: binaryOperation.add, value1: incomingValues.oldValue, value2: incomingValues.newValue))
+            
+            if(actions.lastBinaryOperation == .add){
+                actions.incomingValues.isCanBeChangeRight = false
+                actions.incomingValues.isCanBeClear = false
             }else{
-                currentOperation = .add
                 actions.lastBinaryOperation = .add
-                incomingValues.addValue(value: runningNumber)
+                actions.incomingValues.isCanBeChangeRight = true
+                actions.incomingValues.isCanBeClear = true
+                turnOffStatusValue()
             }
+            print("plus", actions.incomingValues.isCanBeChangeRight)
             break
         case 107:
-            incomingValues.isUnaryValue = true
-            isUnaryMinus = actions.isUnaryMinusValue(value: runningNumber)
-            actions.convertUnaryValue(value: runningNumber)
+            print("is unary?")
+            if(actions.incomingValues.isUnaryValue == true){
+                actions.incomingValues.isUnaryValue = false
+                actions.convertToUnary()
+            }else{
+                actions.incomingValues.isUnaryValue = true
+                actions.convertToUnary()
+            }
             break
         case 108:
-            incomingValues.decimalPoint = true
+            print("decimal point")
+//            if(actions.incomingValues.decimalPoint == true){
+//                actions.incomingValues.decimalPoint = false
+//            }else{
+                actions.convertToDecimal()
+                actions.incomingValues.decimalPoint = true
+            
+//            }
             break
         case 109:
-            incomingValues.addValue(value: runningNumber)
-            print("2 values: ", incomingValues.oldValue, incomingValues.newValue, actions.getLastBinaryOperation())
-            print("test: ", actions.resultExpression(binaryOperation: actions.getLastBinaryOperation(), value1: incomingValues.oldValue, value2: incomingValues.newValue))
+            print("result")
+            actions.resultToExpression()
+            actions.incomingValues.isCanBeChangeRight = false
+            actions.incomingValues.isAfterResult = true
+            actions.lastBinaryOperation = .missing
             break
         default:
             break
         }
     }
     @IBAction func numberPressed(_ sender: UIButton) {
-        if(currentOperation != .missing){
-        actions.clear(isClearAll: false)
+        if(actions.incomingValues.isCanBeClear == true){
+                actions.clear(isClearAll: false)
         }
-        print("runningNumber :", runningNumber)
-        runningNumber = actions.numPressed(num: sender.tag, isDecimal: incomingValues.decimalPoint, isUnaryMinus: isUnaryMinus)
-        incomingValues.decimalPoint = false
-        incomingValues.isUnaryValue = false
+        runningNumber = actions.numPressed(num: sender.tag, isDecimal: actions.incomingValues.decimalPoint, isUnaryMinus: isUnaryMinus)
     }
 }
 
