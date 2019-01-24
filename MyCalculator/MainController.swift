@@ -9,118 +9,146 @@
 import UIKit
 
 
-class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsDelegate, UITableViewDelegate, UITableViewDataSource{
+class MainController: UIViewController, KeyboardViewDelegate, UITableViewDelegate, UITableViewDataSource{
+    
+    @IBOutlet var undoGesture: UISwipeGestureRecognizer!
     @IBOutlet weak var keyboardView: UIView!
-    @IBOutlet weak var showResult: UILabel!
+    var keyboardViewController:KeyboardView!
     @IBOutlet weak var historyTable: UITableView!
-    @IBOutlet var actionButtons: [UIButton] = []
-
+    @IBOutlet weak var showResult: UILabel!
+    
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
-
-    var keyboardViewController:KeyboardView!
-    var runningNumber: Double = 0
-
-    var actions: ExpressionActions!
-    var isUnaryMinus: Bool = false
+    
+    var userIsInTheMiddleOfTyping = false
+    var descriptionDisplay: String = ""
+    var cell: UITableViewCell? = nil
+    
+    private let decimalSeparator = NumberFormatter().decimalSeparator!
+    
+    private var variables = Dictionary<String,Double>()
+    
+    private var brain = CalculatorBrain()
+    
+    @IBOutlet weak var decimalSeparatorButton: UIButton!
+    
+    @IBAction func touchDigit(_ sender: UIButton) {
+        let digit = sender.currentTitle!
+        
+        if userIsInTheMiddleOfTyping {
+            let textCurrentlyInDisplay = showResult.text!
+            if decimalSeparator != digit || !textCurrentlyInDisplay.contains(decimalSeparator) {
+                showResult.text = textCurrentlyInDisplay + digit
+            }
+        } else {
+            switch digit {
+            case decimalSeparator:
+                showResult.text = "0" + decimalSeparator
+            case "0":
+                if "0" == showResult.text {
+                    return
+                }
+                fallthrough
+            default:
+                showResult.text = digit
+            }
+            userIsInTheMiddleOfTyping = true
+        }
+    }
+    
+    
+    var displayValue: Double {
+        get {
+            return (NumberFormatter().number(from: showResult.text!)?.doubleValue)!
+        }
+        set {
+            showResult.text = String(newValue).beautifyNumbers()
+        }
+    }
+    
+    private func displayResult() {
+        let evaluated = brain.evaluate(using: variables)
+        
+        if let error = evaluated.error {
+            showResult.text = error
+        } else if let result = evaluated.result {
+            displayValue = result
+        }
+        
+        if "" != evaluated.description {
+            cell!.textLabel?.text = evaluated.description.beautifyNumbers() + (evaluated.isPending ? "…" : "=")
+        } else {
+            cell!.textLabel?.text = " "
+        }
+    }
+    
+    @IBAction func performOperation(_ sender: UIButton) {
+        if userIsInTheMiddleOfTyping {
+            brain.setOperand(displayValue)
+            userIsInTheMiddleOfTyping = false
+        }
+        if let mathematicalSymbol = sender.currentTitle {
+            brain.performOperation(mathematicalSymbol)
+        }
+        displayResult()
+    }
+    
+    @IBAction func reset(_ sender: UIButton, event: UIEvent) {
+            brain = CalculatorBrain()
+            displayValue = 0
+            cell!.textLabel?.text = " "
+            userIsInTheMiddleOfTyping = false
+            variables = Dictionary<String,Double>()
+    }
+    
+    @IBAction func undo(_ sender: Any) {
+        if userIsInTheMiddleOfTyping, var text = showResult.text {
+            text.remove(at: text.index(before: text.endIndex))
+            if text.isEmpty || "0" == text {
+                text = "0"
+                userIsInTheMiddleOfTyping = false
+            }
+            showResult.text = text
+        } else {
+            brain.undo()
+            displayResult()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        actions = ExpressionActions(delegate: self)
-        _ = actions.numPressed(num: 0, isDecimal: false, isUnaryMinus: false)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(undo))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
 
         keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView, topConstraint: topConstraint)
         keyboardViewController.goUp()
+        
+        adjustButtonLayout(for: view, isPortrait: traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular)
+        decimalSeparatorButton.setTitle(decimalSeparator, for: .normal);
+        
     }
-
-    func turnOffStatusValue() {
-        actions.incomingValues.isUnaryValue = false
-        actions.incomingValues.decimalPoint = false
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        adjustButtonLayout(for: view, isPortrait: newCollection.horizontalSizeClass == .compact && newCollection.verticalSizeClass == .regular)
     }
-
-    @IBAction func actionButton(_ sender: UIView) {
-        switch sender.tag {
-        case 101:
-            print("clear")
-            turnOffStatusValue()
-            actions.incomingValues.isCanBeChangeRight = false
-            actions.lastBinaryOperation = .clear
-            actions.resultToExpression()
-        case 102:
-            print("percent")
-        case 103:
-            print("divide")
-            if actions.lastBinaryOperation == .divide {
-                actions.incomingValues.isCanBeChangeRight = false
-                actions.incomingValues.isCanBeClear = false
-            } else {
-                actions.lastBinaryOperation = .divide
-                actions.incomingValues.isCanBeChangeRight = true
-                actions.incomingValues.isCanBeClear = true
-                turnOffStatusValue()
+    
+    private func adjustButtonLayout(for view: UIView, isPortrait: Bool) {
+        for subview in view.subviews {
+            if subview.tag == 1 {
+                subview.isHidden = isPortrait
+            } else if subview.tag == 2 {
+                subview.isHidden = !isPortrait
             }
-        case 104:
-            print("multiply")
-            if actions.lastBinaryOperation == .multiply {
-                actions.incomingValues.isCanBeChangeRight = false
-                actions.incomingValues.isCanBeClear = false
-            } else {
-                actions.lastBinaryOperation = .multiply
-                actions.incomingValues.isCanBeChangeRight = true
-                actions.incomingValues.isCanBeClear = true
-                turnOffStatusValue()
+            if let button = subview as? UIButton {
+                button.setBackgroundColor(UIColor.black, forState: .highlighted)
+                button.setTitleColor(UIColor.white, for: .highlighted)
+            } else if let stack = subview as? UIStackView {
+                adjustButtonLayout(for: stack, isPortrait: isPortrait);
             }
-        case 105:
-            print("minus")
-            if actions.lastBinaryOperation == .minus {
-                actions.incomingValues.isCanBeChangeRight = false
-                actions.incomingValues.isCanBeClear = false
-            } else {
-                actions.lastBinaryOperation = .minus
-                actions.incomingValues.isCanBeChangeRight = true
-                actions.incomingValues.isCanBeClear = true
-                turnOffStatusValue()
-            }
-        case 106:
-            if actions.lastBinaryOperation == .add {
-                actions.incomingValues.isCanBeChangeRight = false
-                actions.incomingValues.isCanBeClear = false
-            } else {
-                actions.lastBinaryOperation = .add
-                actions.incomingValues.isCanBeChangeRight = true
-                actions.incomingValues.isCanBeClear = true
-                turnOffStatusValue()
-            }
-            print("plus", actions.incomingValues.isCanBeChangeRight)
-        case 107:
-            print("is unary?")
-            actions.incomingValues.isUnaryValue = !actions.incomingValues.isUnaryValue
-            actions.convertToUnary()
-        case 108:
-            print("decimal point")
-//            if(actions.incomingValues.decimalPoint == true){
-//                actions.incomingValues.decimalPoint = false
-//            }else{
-                actions.convertToDecimal()
-                actions.incomingValues.decimalPoint = true
-//            }
-        case 109:
-            print("result")
-            actions.resultToExpression()
-            actions.incomingValues.isCanBeChangeRight = false
-            actions.incomingValues.isAfterResult = true
-            actions.lastBinaryOperation = .missing
-        default:
-            break
         }
-    }
-
-    @IBAction func numberPressed(_ sender: UIButton) {
-        if actions.incomingValues.isCanBeClear {
-            actions.clear(isClearAll: false)
-        }
-
-        runningNumber = actions.numPressed(num: sender.tag, isDecimal: actions.incomingValues.decimalPoint, isUnaryMinus: isUnaryMinus)
     }
 
     // MARK: - TableView methods
@@ -130,18 +158,10 @@ class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsD
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Name"
-        return cell
-    }
-
-    // MARK: - ExpressionActions delegate
-
-    func doubleToReturn(binaryOperation: BinaryOperation, value: Double) {
-    }
-
-    func resultToReturn(binaryOperation: BinaryOperation, value: String) {
-        showResult.text = value
+        cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell!.textLabel?.text = " "
+        cell!.textLabel?.textAlignment = .right
+        return cell!
     }
 
     // MARK: - KeyboardView delegate
@@ -153,3 +173,39 @@ class MainController: UIViewController, KeyboardViewDelegate, ExpressionActionsD
     }
 }
 
+extension UIButton {
+    func setBackgroundColor(_ color: UIColor, forState state: UIControl.State) {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        let context = UIGraphicsGetCurrentContext();
+        color.setFill()
+        context!.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        setBackgroundImage(image, for: state);
+    }
+}
+
+extension String {
+    static let DecimalDigits = 6
+    
+    func beautifyNumbers() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = String.DecimalDigits
+        
+        var text = self as NSString
+        var numbers = [String]()
+        let regex = try! NSRegularExpression(pattern: "[.0-9]+", options: .caseInsensitive)
+        let matches = regex.matches(in: self, options: [], range: NSMakeRange(0, text.length))
+        numbers = matches.map { text.substring(with: $0.range) }
+        
+        for number in numbers {
+            text = text.replacingOccurrences(
+                of: number,
+                with: formatter.string(from: NSNumber(value: Double(number)!))!
+                ) as NSString
+        }
+        return text as String;
+    }
+}

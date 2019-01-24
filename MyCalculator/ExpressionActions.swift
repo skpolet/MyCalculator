@@ -58,7 +58,59 @@ class ExpressionActions: NSObject {
     var lastBinaryOperation: BinaryOperation!
     var incomingValues: IncomingValues!
     var returnString: String = "0"
-
+    //----
+    private var input: String = ""
+    private var expression: Expression = .none
+    
+    private func log() {
+        print("Input: \(input); --> \(currentResult)")
+    }
+    
+    func input(_ string: String) {
+        var needClear = false
+        
+        switch string {
+        case "+":
+            needClear = true
+            expression = .binary(.add(expression, .none))
+        case "-":
+            needClear = true
+            expression = .binary(.subtract(expression, .none))
+        case "/":
+            needClear = true
+            expression = .binary(.divide(expression, .none))
+        case "*":
+            needClear = true
+            expression = .binary(.multiply(expression, .none))
+        case "=":
+            needClear = true
+        case "clear":
+            needClear = true
+            expression = .none
+        case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".":
+            input += string
+        default:
+            break
+        }
+        
+        let value: Expression = input.isEmpty ? .none : .value(Double(input) ?? 0)
+        if expression.isSimpleValue {
+            expression = value
+        } else {
+            expression = expression.replacedRight(value)
+        }
+        
+        if needClear {
+            input = ""
+        }
+        
+        log()
+    }
+    
+    var currentResult: String {
+        return "\(expression.asString) = \(expression.result)"
+    }
+    ///---
     init(delegate:ExpressionActionsDelegate? = nil) {
         super.init()
         incomingValues = IncomingValues()
@@ -122,7 +174,7 @@ class ExpressionActions: NSObject {
                 } else {
                     runningNumber -= Double(num) / pow(10, Double(power))
                 }
-                power = power + 1
+                power += 1
                 print("power :", power)
             } else {
                 if incomingValues.isUnaryValue && runningNumber > 0 {
@@ -130,7 +182,7 @@ class ExpressionActions: NSObject {
                 }
 
                 runningNumber = runningNumber * 10 - Double(num)
-                countNumPressed = countNumPressed + 1
+                countNumPressed += 1
             }
         }
 

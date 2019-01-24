@@ -90,7 +90,7 @@ class KeyboardView: NSObject, UIGestureRecognizerDelegate {
         UIView.animate(
             withDuration: 0.3,
             delay: 0,
-            options: UIViewAnimationOptions.curveEaseInOut,
+            options: UIView.AnimationOptions.curveEaseInOut,
             animations: {
                 self.keyboardView.layoutIfNeeded()
             },
@@ -107,7 +107,7 @@ class KeyboardView: NSObject, UIGestureRecognizerDelegate {
         UIView.animate(
             withDuration: 0.3,
             delay: 0,
-            options: UIViewAnimationOptions.curveEaseInOut,
+            options: UIView.AnimationOptions.curveEaseInOut,
             animations: {
                 self.keyboardView.layoutIfNeeded()
             },

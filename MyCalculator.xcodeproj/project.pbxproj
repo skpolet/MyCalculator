@@ -13,7 +13,10 @@
 		E11670B821D8C5F0006BCA5B /* ExpressionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */; };
 		E11BDA2A2180A27900469AFE /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BDA292180A27800469AFE /* KeyboardView.swift */; };
 		E127B8FA214449AB00E48F16 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E127B8F9214449AB00E48F16 /* Expression.swift */; };
+		E136BECC21F9CF8B00B40DE1 /* TestsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136BECB21F9CF8B00B40DE1 /* TestsCalculator.swift */; };
 		E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182669C21471DF400F284B8 /* ExpressionBox.swift */; };
+		E19F166121F90413008DA8FC /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19F166021F90413008DA8FC /* CalculatorBrain.swift */; };
+		E1A4D32021F9D99D0007ADCC /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19F166521F9C7BA008DA8FC /* Tests.swift */; };
 		E1F6111021385695000C06CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6110F21385695000C06CA /* AppDelegate.swift */; };
 		E1F6111221385695000C06CA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6111121385695000C06CA /* MainController.swift */; };
 		E1F6111521385695000C06CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111321385695000C06CA /* Main.storyboard */; };
@@ -21,7 +24,6 @@
 		E1F6111A21385698000C06CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111921385698000C06CA /* Assets.xcassets */; };
 		E1F6111D21385698000C06CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F6111B21385698000C06CA /* LaunchScreen.storyboard */; };
 		E1F6113321385699000C06CA /* MyCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6113221385699000C06CA /* MyCalculatorUITests.swift */; };
-		E1F6114121388813000C06CA /* OperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F6114021388813000C06CA /* OperationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,10 @@
 		E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpressionCell.xib; sourceTree = "<group>"; };
 		E11BDA292180A27800469AFE /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		E127B8F9214449AB00E48F16 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		E136BECB21F9CF8B00B40DE1 /* TestsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsCalculator.swift; sourceTree = "<group>"; };
 		E182669C21471DF400F284B8 /* ExpressionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionBox.swift; sourceTree = "<group>"; };
+		E19F166021F90413008DA8FC /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
+		E19F166521F9C7BA008DA8FC /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		E1F6110C21385695000C06CA /* MyCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F6110F21385695000C06CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1F6111121385695000C06CA /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -62,7 +67,6 @@
 		E1F6112E21385699000C06CA /* MyCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F6113221385699000C06CA /* MyCalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalculatorUITests.swift; sourceTree = "<group>"; };
 		E1F6113421385699000C06CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1F6114021388813000C06CA /* OperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 				E1F6110F21385695000C06CA /* AppDelegate.swift */,
 				E1F6111121385695000C06CA /* MainController.swift */,
 				E11BDA292180A27800469AFE /* KeyboardView.swift */,
+				E19F166021F90413008DA8FC /* CalculatorBrain.swift */,
 				E1124C33219252CB0015E038 /* ExpressionActions.swift */,
 				E1F6111321385695000C06CA /* Main.storyboard */,
 				E1F6111921385698000C06CA /* Assets.xcassets */,
@@ -127,6 +132,7 @@
 				E11670B521D8C5F0006BCA5B /* ExpressionCell.swift */,
 				E11670B621D8C5F0006BCA5B /* ExpressionCell.xib */,
 				2DBA1E13A15BE00D7A803AE9 /* SimpleCalculatorTest.swift */,
+				E19F166521F9C7BA008DA8FC /* Tests.swift */,
 			);
 			path = MyCalculator;
 			sourceTree = "<group>";
@@ -134,8 +140,8 @@
 		E1F6112621385699000C06CA /* MyCalculatorTests */ = {
 			isa = PBXGroup;
 			children = (
-				E1F6114021388813000C06CA /* OperationTests.swift */,
 				E1F6112921385699000C06CA /* Info.plist */,
+				E136BECB21F9CF8B00B40DE1 /* TestsCalculator.swift */,
 			);
 			path = MyCalculatorTests;
 			sourceTree = "<group>";
@@ -159,6 +165,7 @@
 				E1F6110821385695000C06CA /* Sources */,
 				E1F6110921385695000C06CA /* Frameworks */,
 				E1F6110A21385695000C06CA /* Resources */,
+				E187B71921EDE85E00AD67AA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -217,13 +224,16 @@
 				TargetAttributes = {
 					E1F6110B21385695000C06CA = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					E1F6112221385699000C06CA = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = E1F6110B21385695000C06CA;
 					};
 					E1F6112D21385699000C06CA = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = E1F6110B21385695000C06CA;
 					};
 				};
@@ -276,6 +286,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E187B71921EDE85E00AD67AA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n#if which swiftlint >/dev/null; then\n#swiftlint\n#else\n#echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n#exit 1\n#fi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E1F6110821385695000C06CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -285,10 +315,12 @@
 				E11670B721D8C5F0006BCA5B /* ExpressionCell.swift in Sources */,
 				E127B8FA214449AB00E48F16 /* Expression.swift in Sources */,
 				E1124C34219252CB0015E038 /* ExpressionActions.swift in Sources */,
+				E1A4D32021F9D99D0007ADCC /* Tests.swift in Sources */,
 				E11BDA2A2180A27900469AFE /* KeyboardView.swift in Sources */,
 				E182669D21471DF400F284B8 /* ExpressionBox.swift in Sources */,
 				E1F6111821385695000C06CA /* MyCalculator.xcdatamodeld in Sources */,
 				E1F6111021385695000C06CA /* AppDelegate.swift in Sources */,
+				E19F166121F90413008DA8FC /* CalculatorBrain.swift in Sources */,
 				2DBA1A06C0B5861EA5B8EA37 /* SimpleCalculatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F6114121388813000C06CA /* OperationTests.swift in Sources */,
+				E136BECC21F9CF8B00B40DE1 /* TestsCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,8 +503,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/lib";
 			};
 			name = Debug;
 		};
@@ -489,8 +526,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/lib";
 			};
 			name = Release;
 		};
@@ -499,6 +541,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XBW4F9AQY3;
 				INFOPLIST_FILE = MyCalculatorTests/Info.plist;
@@ -509,7 +552,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCalculator.app/MyCalculator";
 			};
@@ -520,6 +565,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XBW4F9AQY3;
 				INFOPLIST_FILE = MyCalculatorTests/Info.plist;
@@ -530,7 +576,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCalculator.app/MyCalculator";
 			};
@@ -550,7 +597,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MyCalculator;
 			};
@@ -570,7 +617,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Preispodnya.MyCalculatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MyCalculator;
 			};
