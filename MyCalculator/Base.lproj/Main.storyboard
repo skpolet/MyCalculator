@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XJg-15-N8h">
-                                <rect key="frame" x="0.0" y="93" width="375" height="566"/>
+                                <rect key="frame" x="0.0" y="93" width="375" height="574"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="84" id="3eC-C0-pXb">
@@ -71,7 +71,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VG7-9s-AAs"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bCH-lP-LVF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bp-Fw-Uni">
@@ -83,7 +83,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HYt-CR-1Fi"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yCz-P8-H2f"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgT-fK-RFu">
@@ -95,7 +95,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ecI-4Z-U5H"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1x4-Df-rcK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyX-3g-pXc">
@@ -143,7 +143,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NoH-CJ-80u"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mLg-ec-g5l"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1db-EA-MTp">
@@ -191,7 +191,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oxO-U4-DVk"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZIU-mm-LfE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iH2-sV-zgO">
@@ -239,7 +239,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4fl-UT-svU"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J1a-nf-thD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eb-oy-UfW">
@@ -275,7 +275,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HPI-JG-Qls"/>
+                                            <action selector="performOperation:event:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7gZ-eN-4ga"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -288,18 +288,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MfL-D7-lBb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="15x-Nc-AR3"/>
-                            <constraint firstItem="MfL-D7-lBb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7n7-mt-Bus"/>
-                            <constraint firstItem="XJg-15-N8h" firstAttribute="top" secondItem="TKD-CP-aG7" secondAttribute="bottom" constant="8" symbolic="YES" id="8Qg-kn-SgW"/>
-                            <constraint firstItem="TKD-CP-aG7" firstAttribute="centerX" secondItem="XJg-15-N8h" secondAttribute="centerX" id="Eou-bR-yL1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XJg-15-N8h" secondAttribute="bottom" constant="8" id="Ogg-ry-NPY"/>
-                            <constraint firstItem="TKD-CP-aG7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Y71-Lu-GiA"/>
-                            <constraint firstItem="TKD-CP-aG7" firstAttribute="centerX" secondItem="MfL-D7-lBb" secondAttribute="centerX" id="aKy-wx-VlV"/>
-                            <constraint firstItem="TKD-CP-aG7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="fvq-KX-DUz"/>
-                            <constraint firstItem="MfL-D7-lBb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="207" id="heZ-Hp-Lfm"/>
-                            <constraint firstItem="MfL-D7-lBb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="n84-KW-I6d"/>
-                            <constraint firstItem="XJg-15-N8h" firstAttribute="leading" secondItem="MfL-D7-lBb" secondAttribute="leading" id="vAQ-WB-oUP"/>
-                            <constraint firstItem="MfL-D7-lBb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="vkU-L9-bMS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XJg-15-N8h" secondAttribute="bottom" id="BkV-TZ-D26"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TKD-CP-aG7" secondAttribute="trailing" constant="16" id="HgM-Sa-9Eq"/>
+                            <constraint firstItem="MfL-D7-lBb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="aPF-oX-imR"/>
+                            <constraint firstItem="MfL-D7-lBb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="207" id="bXO-dh-E1h"/>
+                            <constraint firstItem="XJg-15-N8h" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cbU-kL-7qk"/>
+                            <constraint firstItem="TKD-CP-aG7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="f3v-kX-n2O"/>
+                            <constraint firstItem="TKD-CP-aG7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="lhy-hq-Jhq"/>
+                            <constraint firstItem="XJg-15-N8h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u2b-m3-Dmc"/>
+                            <constraint firstItem="XJg-15-N8h" firstAttribute="top" secondItem="TKD-CP-aG7" secondAttribute="bottom" constant="8" id="w3m-81-M8M"/>
+                            <constraint firstItem="MfL-D7-lBb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yMz-tG-u2P"/>
+                            <constraint firstItem="MfL-D7-lBb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="z1e-n8-Km8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -309,7 +308,6 @@
                         <outlet property="keyboardView" destination="MfL-D7-lBb" id="3b5-wh-l9z"/>
                         <outlet property="panGestureRecognizer" destination="RLc-z4-cmI" id="GA5-1W-o3z"/>
                         <outlet property="showResult" destination="TKD-CP-aG7" id="Xfd-S2-oMh"/>
-                        <outlet property="topConstraint" destination="heZ-Hp-Lfm" id="hav-cb-5ha"/>
                         <outlet property="undoGesture" destination="3fw-Uk-9po" id="hay-6t-8cU"/>
                     </connections>
                 </viewController>

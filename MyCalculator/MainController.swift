@@ -82,7 +82,7 @@ class MainController: UIViewController, KeyboardViewDelegate, UITableViewDelegat
         }
     }
     
-    @IBAction func performOperation(_ sender: UIButton) {
+    @IBAction func performOperation(_ sender: UIButton, event: UIEvent) {
         if userIsInTheMiddleOfTyping {
             brain.setOperand(displayValue)
             userIsInTheMiddleOfTyping = false
@@ -91,6 +91,42 @@ class MainController: UIViewController, KeyboardViewDelegate, UITableViewDelegat
             brain.performOperation(mathematicalSymbol)
         }
         displayResult()
+        let touch: UITouch = event.allTouches!.first!
+        if (touch.tapCount == 2 && sender.currentTitle == "=") {
+            // do action
+            print("double tap enter")
+            alertForSave()
+        }
+    }
+    
+    func alertForSave(){
+        let evaluated = brain.evaluate(using: variables)
+        
+        if (evaluated.result != nil) {
+            let alert = UIAlertController(title: "Укажите название для этого рассчета", message: showResult.text, preferredStyle: UIAlertController.Style.alert)
+            alert.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "Enter First Name"
+            })
+            let nameResult = alert.textFields![0] as UITextField
+            let printSomething = UIAlertAction(title: "Сохранить", style: UIAlertAction.Style.default) { _ in
+                guard let result = nameResult.text?.count else{
+                    return
+                }
+                if(result > 0){
+                print("result\(result)")
+                }
+                
+            }
+            let dismiss = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.cancel, handler: nil)
+            
+
+
+            
+            alert.addAction(printSomething)
+            alert.addAction(dismiss)
+            
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     @IBAction func reset(_ sender: UIButton, event: UIEvent) {
@@ -119,11 +155,11 @@ class MainController: UIViewController, KeyboardViewDelegate, UITableViewDelegat
         super.viewDidLoad()
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(undo))
-        swipeLeft.direction = .left
+        swipeLeft.direction = [UISwipeGestureRecognizer.Direction.left, UISwipeGestureRecognizer.Direction.right]
         self.view.addGestureRecognizer(swipeLeft)
 
-        keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView, topConstraint: topConstraint)
-        keyboardViewController.goUp()
+        keyboardViewController = KeyboardView(panGestureRecognizer: panGestureRecognizer, delegate: self, superView: self.view, keyboardView: keyboardView)
+        //keyboardViewController.goUp()
         
         adjustButtonLayout(for: view, isPortrait: traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular)
         decimalSeparatorButton.setTitle(decimalSeparator, for: .normal);
